@@ -13,7 +13,7 @@
         if($driver->create($nom_complet,$numero_telephone,$numero_permis_conduir,$photo,$addresse))
         {
             
-            echo "<script>alert('Data insert Successfully');</script>";
+            //echo "<script>alert('Data insert Successfully');</script>";
             echo "<script>window.location.href='dashboard.php?page=pages/drivers/index'</script>";
         }
         else

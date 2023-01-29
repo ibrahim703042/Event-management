@@ -1,5 +1,5 @@
 <?php 
-    include_once '../includes/db_connect.php';  
+    include 'db_connect.php';
 ?>
 
 <head>

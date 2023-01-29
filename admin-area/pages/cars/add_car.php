@@ -1,6 +1,6 @@
 
 <?php 
-    if(isset($_POST['btn_save'])){
+    if(isset($_POST['add_car'])){
         $marque = $_POST['marque'];
         $modele = $_POST['modele'];
         $plaque = $_POST['plaque'];
@@ -8,11 +8,16 @@
         $status = $_POST['status'];
 
         $photo=$_FILES["photo"]["name"];
-        move_uploaded_file($_FILES["photo"]["tmp_name"],"assets/img/cars_image/".$_FILES["photo"]["name"]);
+        $path = "assets/img/cars_image";
+        $image_ext = pathinfo($photo, PATHINFO_EXTENSION);
+        $filename=time().'.'.$image_ext;
 
             
         if($car->create($marque,$modele,$plaque,$photo,$chauffeur,$status))
         {
+            move_uploaded_file($_FILES["photo"]["tmp_name"], $path.'.'.$filename);
+
+            // move_uploaded_file($_FILES["photo"]["tmp_name"],"assets/img/cars_image/".$_FILES["photo"]["name"]);
             
             echo "<script>alert('Data insert Successfully');</script>";
             echo "<script>window.location.href='dashboard.php?page=pages/cars/index'</script>";
@@ -85,7 +90,7 @@
                 </div>
                 
                 <div class=" text-end">
-                    <input type="submit" value="Enregistrer" class="btn btn-success" name="btn_save"> 
+                    <input type="submit" value="Enregistrer" class="btn btn-success" name="add_car"> 
                     <!-- <button type="submit" class="btn btn-success" name="btn_save">Enregistrer</button>  -->
             </form>
         </div>

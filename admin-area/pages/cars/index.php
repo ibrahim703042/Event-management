@@ -33,7 +33,7 @@
                   </div>
                      <!-- table responsive -->
                   <div class="card-body">
-                     <h5 class="card-title">List des Chauffeurs</h5>
+                     <h5 class="card-title">List des vehicules</h5>
 
                      <table class="table table-striped datatable" id="example">
                

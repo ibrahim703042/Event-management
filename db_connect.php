@@ -16,13 +16,7 @@ catch(PDOException $e){
 
 	echo $e->getMessage();
 }
-//$conn = mysqli_connect("localhost","root","","event");
-include_once 'class/car.php';
-include_once 'class/driver.php';
-include_once 'class/user.php';
 
-$car= new car($dbconnection);
-$driver= new driver($dbconnection);
-$utilisateur= new user($dbconnection);
+$conn = mysqli_connect("localhost","root","","event");
 
 ?>

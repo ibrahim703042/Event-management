@@ -156,4 +156,35 @@ class user
 		
 		
 	}
+
+	// authentifiacation
+	public function auth($dbconnection,$email,$password){
+
+		$sql ="SELECT * FROM utilisateurs WHERE email=:email and mot_de_passe=:mot_passe";
+		$query=$dbconnection->prepare($sql);
+		$query-> bindParam(':email', $email, PDO::PARAM_STR);
+		$query-> bindParam(':mot_passe', $password, PDO::PARAM_STR);
+		$query-> execute();
+		$results=$query->fetchAll(PDO::FETCH_OBJ);
+
+		
+	}
+
+	public function data_selected($query){
+
+		$stmt = $this->db->prepare($query);
+		$stmt->execute();
+	
+		if($stmt->rowCount()>0){
+			
+			while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
+				
+				?>
+					<option value="<?php print($row['id_chauffeur']); ?>"><?php print($row['nom_complet']); ?></option>
+                <?php
+			}
+		}
+		
+		
+	}
 }

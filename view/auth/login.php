@@ -1,62 +1,29 @@
 
 <?php
-/* // if(isset($_POST['connexion'])){
+include 'db_connect.php';
+   session_start();
+   error_reporting(0);
 
-//     $email=$_POST['email'];
-//     //$mot_passe=md5($_POST['mot_passe']);
-//     $mot_passe=$_POST['mot_passe'];
-//     $sql ="SELECT * FROM utilisateurs WHERE email=:email and mot_de_passe=:mot_passe";
-//     $query=$dbconnection->prepare($sql);
-//     $query-> bindParam(':email', $email, PDO::PARAM_STR);
-//     $query-> bindParam(':mot_passe', $mot_passe, PDO::PARAM_STR);
-//     $query-> execute();
-//     $results=$query->fetchAll(PDO::FETCH_OBJ);
+if(isset($_POST['connexion'])){
 
-//     if($query->rowCount() > 0)
-//   {
-//     $_SESSION['email']=$_POST['email'];
-//     echo "<script >document.location = 'dashboard.php'; </script>";
-//   } else{
-//     $error="Invalid Details";
-//   }
-    
-//     /* if($query->rowCount() > 0){
+    $email=$_POST['email'];
+    //$mot_passe=md5($_POST['mot_passe']);
+    $mot_passe=$_POST['mot_passe'];
+    $sql ="SELECT * FROM utilisateurs WHERE email=:email and mot_de_passe=:mot_passe";
+    $query=$dbconnection->prepare($sql);
+    $query-> bindParam(':email', $email, PDO::PARAM_STR);
+    $query-> bindParam(':mot_passe', $mot_passe, PDO::PARAM_STR);
+    $query-> execute();
+    $results=$query->fetchAll(PDO::FETCH_OBJ);
 
-//         foreach ($results as $result) {
-//             $_SESSION['odmsaid']=$result->id;
-//             $_SESSION['connexion']=$result->email;
-//             $_SESSION['permission']=$result->nom;
-//             $get=$result->Status;
-//         }
-//         $aa= $_SESSION['odmsaid'];
-//         $sql="SELECT * from utilisateurs  where id_utilisateur=:aa";
-//         $query = $dbconnection -> prepare($sql);
-//         $query->bindParam(':aa',$aa,PDO::PARAM_STR);
-//         $query->execute();
-//         $results=$query->fetchAll(PDO::FETCH_OBJ);
-//         $cnt=1;
-//         if($query->rowCount() > 0)
-//         {
-//             foreach($results as $row){            
-//                 if($row->Status=="1")
-//                 { 
-//                     //echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
-//                   echo "<script>window.location.href='dashboard.php'</script>";                  
-//                   //header("Location:dashboard.php");
-                    
-//                 } else
-//                 { 
-//                     echo "<script>
-//                     alert('Your account was disabled Approach Admin');document.location ='index.php';
-//                     </script>";
-//                 }
-//             } 
-//         } 
-//     } 
-//     else{
-//         echo "<script>alert('Invalid Details');</script>";
-//     } */
-// } */
+   if($query->rowCount() > 0){
+      $_SESSION['email']=$_POST['email'];
+      echo "<script >document.location = 'index.php'; </script>";
+    } else{
+      $error="Invalid Details";
+    }
+
+}
 
 ?>
 
