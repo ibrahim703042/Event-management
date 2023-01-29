@@ -33,7 +33,7 @@ class car
 	
 	public function getID($id){
 
-		$stmt = $this->db->prepare("SELECT * FROM voitures WHERE id_voiture=:id");
+		$stmt = $this->db->prepare("SELECT * FROM voitures WHERE  id_voiture=:id");
 		$stmt->execute(array(":id"=>$id));
 		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
 		return $editRow;
@@ -135,20 +135,20 @@ class car
 					<td classe="text-center"><?php print($row['nom_complet']);?></td>
 					
 					<?php 
-						if ($row['status'] == "Libre"){
+						if ($row['status_voiture'] == "Libre"){
 							?>
 							<td classe="text-center">
 								<span class="badge bg-success">
-									<?php print($row['status']);?>
+									<?php print($row['status_voiture']);?>
 								</span>
 							</td>
 							<?php	
 						}
-						else if ($row['status'] == "Occuper"){
+						else if ($row['status_voiture'] == "Occuper"){
 							?>
 							<td classe="text-center">
 								<span class="badge bg-danger">
-									<?php print($row['status']);?>
+									<?php print($row['status_voiture']);?>
 								</span>
 							</td>
 						<?php	
@@ -157,7 +157,7 @@ class car
 							?>
 								<td classe="text-center">
 									<span class="badge bg-info">
-										<?php print($row['status']);?>
+										<?php print($row['status_voiture']);?>
 									</span>
 								</td>
 							<?php	
@@ -173,7 +173,7 @@ class car
 						<a class="text-primary me-3" href="dashboard.php&page=pages/drivers/view&view_id=<?php print($row['id_voiture']);?>">
 								<i class="bi bi-eye-fill"></i>
 						</a>  
-						<a class=" text-info me-3" href="dashboard.php?page=pages/cars/edit&$edit_id=<?php print($row['id_chauffeur']);?>" >
+						<a class=" text-info me-3" href="dashboard.php?page=pages/cars/edit&car_id=<?php print($row['id_chauffeur']);?>" >
 							<i class="bi bi-pencil"></i>
 						</a>
 						<a class="text-danger me-3" href="dashboard.php?page=pages/cars/delete&delete_id=<?php print($row['id_voiture']);?>">
