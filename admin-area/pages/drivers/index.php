@@ -44,61 +44,13 @@
                             <th scope="col">Nom complet</th>
                             <th scope="col">Telephone</th>
                             <th scope="col">Permis</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Address</th>
                             <th scope="col" >Date </th>
                             <th scope="col" >Action </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                                /* $sql ="SELECT * FROM chauffeurs";
-                                $query= $dbconnection -> prepare($sql);
-                                $query-> execute();
-                                $results = $query -> fetchAll(PDO::FETCH_OBJ);
-                                $count = 1;
-                                if($query -> rowCount() > 0)
-                                {
-                                foreach($results as $result)
-                                {
-                                ?>
-                                    <tr>
-                                        <td classe="text-center"><?php echo($count);?></td>
-                                        <td classe="text-center">
-                                            <img class="" src="assets/img/drivers_image/<?php echo htmlentities($result->photo);?>" alt="profil" height="40" width="40" style="border-radius: 50px;" >
-                                        </td>
-                                        </td>
-                                        <td classe="text-center"><?php echo htmlentities($result->nom_complet);?></td>
-                                        <td classe="text-center"><?php echo htmlentities($result->numero_telephone);?></td>
-                                        <td classe="text-center"><?php echo htmlentities($result->numero_permis_conduir);?></td>
-                                        <td classe="text-center"><?php echo htmlentities($result->addresse);?></td>
-                                        <td classe="text-center">
-                                            <span class="">
-                                                <?php  echo htmlentities(date("d-m-Y", strtotime($result->date)));?>
-                                            </span>
-                                        </td>
-                                        <td classe="text-center">  
-                                            <!-- <a href="dashboard.php&page=pages/drivers/view"> -->
-                                                <!-- <button class="btn btn-info"> -->
-                                                <button type="button" class="btn btn-primary" 
-                                                    data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
-                                                    <i class="bi bi-eye-fill"></i>
-                                                </button>
-                                                <?php include 'view.php' ?>
-                                            <!-- </a>   -->
-                                            <a href="dashboard.php?page=pages/drivers/edit&id=<?php echo htmlentities($result->id_chauffeur);?>">
-                                                <button class="btn btn-info">
-                                                    <i class="bi bi-pencil"></i>
-                                                </button>
-                                            </a>  
-                                            <a href="dashboard.php?page=pages/drivers/delete&del=<?php echo htmlentities($result->id_chauffeur);?>">
-                                                <button class="btn btn-danger" onClick="return confirm('Do you really want to delete');">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php  $count=$count+1; } }  */
-                            ?>
                             <?php 
                             
                                 $query = "SELECT * FROM chauffeurs";    
@@ -113,6 +65,7 @@
                                 <th scope="col">Nom complet</th>
                                 <th scope="col">Telephone</th>
                                 <th scope="col">Permis</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Address</th>
                                 <th scope="col" >Date</th>
                             </tr>

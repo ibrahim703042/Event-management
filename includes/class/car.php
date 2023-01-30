@@ -12,7 +12,7 @@ class car
 	public function create($nom_marque,$modele,$plaque,$photo,$chauffeur,$status){
 		try
 		{
-			$stmt = $this->db->prepare("INSERT INTO voitures (nom_marque,modele,plaque,photo_vehicule,id_chauffeur,status) VALUES(:nom_marque,:modele,:plaque,:photo,:chauffeur,:status)");
+			$stmt = $this->db->prepare("INSERT INTO voitures (nom_marque,modele,plaque,photo_voiture,id_chauffeur,status_voiture) VALUES(:nom_marque,:modele,:plaque,:photo,:chauffeur,:status)");
 			$stmt->bindparam(":nom_marque",$nom_marque);
 			$stmt->bindparam(":modele",$modele);
 			$stmt->bindparam(":plaque",$plaque);
@@ -46,9 +46,9 @@ class car
 			$stmt=$this->db->prepare("UPDATE voitures SET nom_marque=:nom_marque, 
 		                                               modele=:modele, 
 													   plaque=:plaque, 
-													   photo_vehicule=:photo,
+													   photo_voiture=:photo,
 													   id_chauffeur=:chauffeur,
-													   status=:status
+													   status_voiture=:status
 													WHERE id_voiture=:id_voiture ");
 			$stmt->bindparam(":nom_marque",$nom_marque);
 			$stmt->bindparam(":modele",$modele);
@@ -127,7 +127,7 @@ class car
 					<td classe="text-center"><?php echo($count);?></td>
 					<!-- <td classe="text-center"><?php print($row['id_voiture']);?></td> -->
 					<td classe="text-center">
-						<img class="" src="assets/img/cars_image/<?php print($row['photo_vehicule']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
+						<img class="" src="assets/img/cars_image/<?php print($row['photo_voiture']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
 					</td>
 					<td classe="text-center"><?php print($row['modele']);?></td>
 					<td classe="text-center"><?php print($row['nom_marque']);?></td>
@@ -188,4 +188,5 @@ class car
 		
 		
 	}
+
 }

@@ -8,24 +8,19 @@
         $status = $_POST['status'];
 
         $photo=$_FILES["photo"]["name"];
-        $path = "assets/img/cars_image";
-        $image_ext = pathinfo($photo, PATHINFO_EXTENSION);
-        $filename=time().'.'.$image_ext;
-
             
         if($car->create($marque,$modele,$plaque,$photo,$chauffeur,$status))
         {
-            move_uploaded_file($_FILES["photo"]["tmp_name"], $path.'.'.$filename);
-
-            // move_uploaded_file($_FILES["photo"]["tmp_name"],"assets/img/cars_image/".$_FILES["photo"]["name"]);
+            move_uploaded_file($_FILES["photo"]["tmp_name"],"assets/img/cars_image/".$_FILES["photo"]["name"]);
             
-            echo "<script>alert('Data insert Successfully');</script>";
-            echo "<script>window.location.href='dashboard.php?page=pages/cars/index'</script>";
+            redirect('index.php','Data insert Successfully');
+            // echo "<script>alert('Data insert Successfully');</script>";
+            // echo "<script>window.location.href='dashboard.php?page=pages/cars/index'</script>";
         }
         else
         {
             echo "<script>alert('Operation Failed');</script>";
-            echo "<script>window.location.href='dashboard.php?page=pages/cars/add_car'</script>";
+            //echo "<script>window.location.href='dashboard.php?page=pages/cars/add_car'</script>";
             
         }
     }

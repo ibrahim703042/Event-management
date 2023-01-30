@@ -13,3 +13,20 @@
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="assets/js/datatables-demo.js"></script>
+<!-- alertifyjs -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+
+<script >
+    <?php 
+        if(isset($_SESSION['message'])){
+            ?>
+
+                alertify.set('notifier','position', 'top-right');
+                alertify.success('<?= $_SESSION['message']; ?> ');
+
+            <?php
+            unset($_SESSION['message']);
+        }
+    ?>
+</script>

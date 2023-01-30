@@ -1,5 +1,9 @@
 <?php
 
+    // $email = "";
+    // $name = "";
+    $errors = array();
+
     if(isset($_POST["user_btn"])){
 
         $fname = $_POST['nom'];
@@ -11,20 +15,34 @@
         $country = $_POST['pays'];
         $passport = $_POST['passport'];
         $rotary = $_POST['rotary'];
-        
         $status = isset($_POST['status']) ? '0':'1' ;
         $fileName=$_FILES["file"]["name"];
-              
-        $insert = $user->create_user($fname,$lname,$email,$phone,$passport,$fileName,$country,$rotary,$status,$role,$password);
-        if($insert){
 
-            move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/users_image/".$_FILES["file"]["name"]);
+        $email_check = $user->email_check("utilisateurs",$email);
+        if($email_check->rowCount()>0){
+			
+			while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
+				
+				$errors['email'] = "Email deja existe!";
+			}
+		}
+        
+        if(count($errors) === 0){
 
-            echo "<script>alert('Data insert Successfully');</script>";
-            
-        }else{
-            echo "<script>alert('File upload failed, please try again.');</script>";
+            $encpass = password_hash($password, PASSWORD_BCRYPT);
+          
+            $insert = $user->create_user($fname,$lname,$email,$phone,$passport,$fileName,$country,$rotary,$status,$role,$encpass);
+            if($insert){
+
+                move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/users_image/".$_FILES["file"]["name"]);
+
+                echo "<script>alert('Data insert Successfully');</script>";
+                
+            }else{
+                echo "<script>alert('File upload failed, please try again.');</script>";
+            }
         }
+
     }    
 ?>
 

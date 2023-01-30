@@ -9,16 +9,17 @@ class driver
 		$this->db = $DB_con;
 	}
 	
-	public function create($nom_complet,$numero_telephone,$numero_permis_conduir,$photo,$addresse){
+	public function create($nom,$telephone,$permis,$photo,$addresse,$status){
 
 		try
 		{
-			$stmt = $this->db->prepare("INSERT INTO chauffeurs (nom_complet,numero_telephone,numero_permis_conduir,photo,addresse) VALUES(:nom_complet,:numero_telephone,:numero_permis_conduir,:photo,:addresse)");
-			$stmt->bindParam(':nom_complet',$nom_complet);
-            $stmt->bindParam(':numero_telephone',$numero_telephone);
-            $stmt->bindParam(':numero_permis_conduir',$numero_permis_conduir);
+			$stmt = $this->db->prepare("INSERT INTO chauffeurs (nom_complet,numero_telephone,numero_permis_conduir,photo,addresse,status_chauffeur) VALUES(:nom,:telephone,:permis,:photo,:addresse,:status)");
+			$stmt->bindParam(':nom',$nom);
+            $stmt->bindParam(':telephone',$telephone);
+            $stmt->bindParam(':permis',$permis);
             $stmt->bindParam(':photo',$photo);
             $stmt->bindParam(':addresse',$addresse);
+            $stmt->bindParam(':status',$status);
             $stmt -> execute();
 			
 			$stmt->execute();
@@ -40,22 +41,24 @@ class driver
 		return $editRow;
 	}
 	
-	public function update($id,$nom_complet,$telephone,$permis,$photo,$addresse){
+	public function update($id,$nom,$telephone,$permis,$photo,$addresse,$status){
 
 		try
 		{
-			$stmt=$this->db->prepare("UPDATE chauffeurs SET nom_complet=:nom_complet, 
+			$stmt=$this->db->prepare("UPDATE chauffeurs SET nom_complet=:nom, 
 		                                               numero_telephone=:telephone, 
 													   numero_permis_conduir=:permis, 
 													   photo=:photo,
-													   addresse=:addresse
+													   addresse=:addresse,
+													   status_chauffeur=:status
 
 													WHERE id_chauffeur=:id_chauffeur ");
-			$stmt->bindparam(":nom_complet",$nom_complet);
-			$stmt->bindparam(":telephone",$telephone);
-			$stmt->bindparam(":permis",$permis);
-			$stmt->bindparam(":photo",$photo);
-			$stmt->bindparam(":addresse",$addresse);
+			$stmt->bindParam(':nom',$nom);
+            $stmt->bindParam(':telephone',$telephone);
+            $stmt->bindParam(':permis',$permis);
+            $stmt->bindParam(':photo',$photo);
+            $stmt->bindParam(':addresse',$addresse);
+            $stmt->bindParam(':status',$status);
 			$stmt->bindparam(":id_chauffeur",$id);
 			$stmt->execute();
 			
@@ -92,12 +95,37 @@ class driver
 					<td classe="text-center"><?php echo($count);?></td>
 					<!-- <td classe="text-center"><?php print($row['id_chauffeur']);?></td> -->
 					<td classe="text-center">
-						<img class="" src="assets/img/drivers_image/<?php print($row['photo']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
+						<!-- <img class="" src="assets/img/drivers_image/<?php print($row['photo']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" > -->
+						<img class="" src="../uploads/<?php print($row['photo']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
 					</td>
 					<td classe="text-center"><?php print($row['nom_complet']);?></td>
 					
 					<td classe="text-center"><?php print($row['numero_telephone']);?></td>
 					<td classe="text-center"><?php print($row['numero_permis_conduir']);?></td>
+					<td classe="text-center">
+						<?=$row['status_chauffeur']  == '1' ? "Libre" : "Occuper";?>
+					</td>
+					<?php 
+						/* if ($row['status_voiture'] == 1){
+							?>
+							<td classe="text-center">
+								<span class="badge bg-success">
+									<?php print($row['Libre']);?>
+								</span>
+							</td>
+							<?php	
+						}
+						else{
+							?>
+								<td classe="text-center">
+									<span class="badge bg-info">
+										<?php print($row['Occuper']);?>
+									</span>
+								</td>
+							<?php	
+						}  */
+					?>
+				
 					<td classe="text-center"><?php print($row['addresse']);?></td>
 					
 					<td classe="text-center">

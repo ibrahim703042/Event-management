@@ -1,24 +1,38 @@
 <?php 
-    if(isset($_POST['submit'])){
+    if(isset($_POST['edit_driver'])){
 
-        $id = $_GET['$edit_id'];
-        $nom_complet = $_POST['nom_complet'];
-        $numero_telephone = $_POST['telephone'];
-        $numero_permis_conduir = $_POST['permis'];
+        $hidden_id = $_POST['hidden_id'];
+        $nom = $_POST['nom_complet'];
+        $telephone = $_POST['telephone'];
+        $permis = $_POST['permis'];
         $addresse = $_POST['addresse'];
+        $status = isset($_POST['status']) ? '1':'0' ;
 
-        $photo=$_FILES["photo"]["name"];
-        move_uploaded_file($_FILES["photo"]["tmp_name"],"assets/img/drivers_image/".$_FILES["photo"]["name"]);
+        $new_photo=$_FILES["photo"]["name"];
+        $old_photo=$_POST["old_photo"];
 
+        if( $new_photo != ""){
+            $update_image = $new_photo;
+        }else{
+            $update_image = $old_photo;
+        }
             
-        if($driver->update($id,$nom_complet,$numero_telephone,$numero_permis_conduir,$photo,$addresse)){
+        if($driver->update($hidden_id,$nom,$telephone,$permis,$update_image,$addresse,$status)){
 
-            echo "<script>alert('Data updated Successfully');</script>";
-            echo "<script>window.location.href='dashboard.php?page=pages/drivers/index'</script>";
+            if($_FILES["photo"]["name"] != ""){
+
+                move_uploaded_file($_FILES["photo"]["tmp_name"],"assets/img/drivers_image/".$_FILES["photo"]["name"]);
+                if(file_exists("assets/img/drivers_image/".$old_photo)){
+                    unlink("assets/img/drivers_image/".$old_photo);
+                }
+                echo "<script>alert('Data updated Successfully');</script>";
+                echo "<script>window.location.href='dashboard.php?page=pages/drivers/index'</script>";
+            }
+            
         }
         else{
             echo "<script>alert('Operation Failed');</script>";
-            echo "<script>window.location.href='dashboard.php?page=pages/drivers/edit'</script>";  
+            //echo "<script>window.location.href='dashboard.php?page=pages/drivers/edit'</script>";  
         }
     
     }
@@ -44,7 +58,8 @@
                 <div class="card">
                     <div class="card-body">
                         <form method="POST" action="" class="row g-3 py-5">
-                            <div class="col-md-12"> 
+                            <div class="col-md-12">
+                                <input type="hidden" name="hidden_id" value="<?php echo $id;?>"> 
                                 <label for="nom" class="form-label">Nom complet</label>
                                 <input type="text" class="form-control" value="<?php echo $nom_complet;?>" name="nom_complet" id="nom_complet" placeholder="Entrer nom et prenom">
                             </div>
@@ -62,31 +77,32 @@
                                 <input type="text" class="form-control" value="<?php echo $addresse;?>" name="addresse" id="addresse" placeholder="Entrer addresse">
                             </div>
                             <div class="col-md-2"> 
+                                <label for="status" class="form-label">Status</label> 
+                                <div class="form-check">
+                                <label class="form-check-label" for="">
+                                    Etat
+                                </label>
+                                <input class="form-check-input" type="checkbox" name="status"<?= $status_chauffeur == '0' ? '':'checked'?>  value="" id="">
+                                </div>
+                            </div>
+                            <div class="col-md-2"> 
                                 <label for="photo" class="form-label text-black-50">Ancien image</label>
                                 <div class="">
                                     <?php 
-                                        /* if($photo=="product_1.jpg"){ 
-                                            ?>
-                                                <img class="" src="assets/img/drivers_image/product_1.jpg" alt="" width="100" height="100">
-                                            <?php } 
-                                            else { 
-                                                ?>
-                                                <img class="rounded" src="assets/img/drivers_image/<?php  echo $photo;?>" width="40" height="40"> 
-                                            <?php 
-                                        }  */
                                         ?>
-                                            <img class="rounded" src="assets/img/drivers_image/<?php  echo $photo;?>" width="40" height="40"> 
+                                            <img class="rounded" src="assets/img/drivers_image/<?php  echo $photo;?>" width="40" height="40">
+                                            <input type="hidden" name="old_photo" value="<?php  echo $photo;?>"> 
                                         <?php
                                     ?>
                                 </div>
                             </div>
-                            <div class="col-md-4"> 
+                            <div class="col-md-2"> 
                                 <label for="photo" class="form-label">Photo</label> 
                                 <input type="file" class="form-control" name="photo" id="photo">
                             </div>
                             
                             <div class=" text-end"> 
-                                <button type="submit" class="btn btn-success" name="submit">Modifier</button> 
+                                <button type="submit" class="btn btn-success" name="edit_driver">Modifier</button> 
                         </form>
                     </div>
                 </div>

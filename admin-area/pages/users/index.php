@@ -58,7 +58,7 @@
                         
                               $query = "SELECT * FROM utilisateurs";    
                               
-                              $utilisateur->dataview($query);
+                              $user->dataview($query);
                            ?>
                      </tbody>
                      <tfoot>

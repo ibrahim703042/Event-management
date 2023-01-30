@@ -20,6 +20,7 @@ catch(PDOException $e){
 $conn = mysqli_connect($DB_host,$DB_user,$DB_pass,$DB_name);
 
 include_once 'controller/controllerData.php';
+include_once 'function/function.php';
 
 include_once 'class/car.php';
 include_once 'class/driver.php';
@@ -27,6 +28,6 @@ include_once 'class/user.php';
 
 $car= new car($dbconnection);
 $driver= new driver($dbconnection);
-$utilisateur= new user($dbconnection);
+$user= new user($dbconnection);
 
 ?>
