@@ -1,51 +1,34 @@
 
 <?php
 
-if(isset($_POST['btn_del'])){
+/* if(isset($_POST['btn_del'])){
 
    $id = $_GET['view_id'];
    // $id = $_POST['id_chauffeur'];
    $driver->delete($id);
    echo "<script>alert('Data Deleted Successfully');</script>";
    echo "<script>window.location.href='dashboard.php?page=pages/drivers/index'</script>";
-}
+} */
+    
+   /*  if(isset($_GET['view_id'])){
+        
+        $id = $_GET['view_id'];
+        extract($driver->getID($id));	
+    } */
 
 ?>
 
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="row">
-
-                
+            <div class="row"> 
                 
                 <div class="col-xxl-4 col-md-6">
                     <div class="row">
                       <div class="col-8">
                         <div class="card w-50">
                           
-                        <?php
-                     
-                            if(isset($_GET['view_id'])){
-                                ?>
-        
-                                    
-                                    <?php 
-                                        $query = "SELECT * FROM chauffeurs  WHERE id_chauffeur=:id";    
-                                        $stmt = $dbconnection->prepare($query);
-                                        $stmt->execute(array(":id"=>$_GET['view_id']));
-                                        while($row=$stmt->fetch(PDO::FETCH_BOTH)){
-                                            ?>
-                                                <img class="rounded" src="assets/img/drivers_image/<?php print($row['photo']);?>" >
-                                                
-                                            <?php
-                                        }
-                                    ?>
-                                    
-                                    </table>
-                                <?php
-                            }
-                        ?>
+                        
                             <img class="rounded" src="assets/img/drivers_image/profile-img.jpg"> 
                           
                         </div>

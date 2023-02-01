@@ -1,61 +1,69 @@
 
-<?php 
-    if(isset($_POST['add_car'])){
-        $marque = $_POST['marque'];
-        $modele = $_POST['modele'];
-        $plaque = $_POST['plaque'];
-        $chauffeur = $_POST['chauffeur'];
-        $status = $_POST['status'];
 
-        $photo=$_FILES["photo"]["name"];
-            
-        if($car->create($marque,$modele,$plaque,$photo,$chauffeur,$status))
-        {
-            move_uploaded_file($_FILES["photo"]["tmp_name"],"assets/img/cars_image/".$_FILES["photo"]["name"]);
-            
-            redirect('index.php','Data insert Successfully');
-            // echo "<script>alert('Data insert Successfully');</script>";
-            // echo "<script>window.location.href='dashboard.php?page=pages/cars/index'</script>";
-        }
-        else
-        {
-            echo "<script>alert('Operation Failed');</script>";
-            //echo "<script>window.location.href='dashboard.php?page=pages/cars/add_car'</script>";
-            
-        }
-    }
+<?php
+    $bdd=new PDO('mysql:host=localhost;dbname=event;charset=utf8','root','');
+    // if(isset($_POST['car_add_btn'])){
+
+    //     $marque = $_POST['marque'];
+    //     $modele = $_POST['modele'];
+    //     $plaque = $_POST['plaque'];
+    //     $descr = $_POST['description'];
+    //     $chauffeur = $_POST['chauffeur'];
+    //     $status = $_POST['status'];
+        
+    //     $target="assets/img/drivers_image/".basename($_FILES['photo']['name']);
+
+    //     $sql ="INSERT INTO voitures (nom_marque,modele,photo_vehicule,plaque,description,id_chauffeur,status) 
+    //             VALUES(?,?,?,?,?,?)";
+
+    //     $query=$bdd->prepare($sql);
+    //     $run_query = $query->execute(array($marque,$modele,$target,$plaque,$descr,$chauffeur,$status));
+
+    //     if($run_query){
+
+    //         move_uploaded_file($_FILES["photo"]["tmp_name"],$target);
+    //         $_SESSION['message'] = "Data insert Successfully";
+    //         header('Location:dashboard.php?page=pages/drivers/index');
+
+    //     }else{
+
+    //         $_SESSION['error'] = "Something went wrong";
+    //         header('Location:dashboard.php?page=pages/drivers/add_driver'); 
+    //     }
+
+    // }
 ?>
-
 <div class="pagetitle">
     <h1>Voiture</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="dashboard.php?page=widget">Acceuil</a></li>
             <li class="breadcrumb-item">Voitures</li>
-            <li class="breadcrumb-item active">Formulaire</li>
-    </ol>
+            <li class="breadcrumb-item active">Ajouter</li>
+        </ol>
     </nav>
-    </div>
-    <section class="section dashboard">
+</div>
+
+<section class="section dashboard">
     <div class="card">
         <div class="card-body">
             <form class="row g-3 py-5" method="post" enctype="multipart/form-data">
                 <div class="col-md-12"> 
                     <label for="marque" class="form-label">Marque</label>
-                    <input type="text" class="form-control" name="marque" id="marque">
+                    <input type="text" class="form-control" autocomplete="on" name="marque" autocomplete="on" id="marque">
                 </div>
                 <div class="col-md-6"> 
                     <label for="modele" class="form-label">Modele</label> 
-                    <input type="text" class="form-control" name="modele" id="modele">
+                    <input type="text" class="form-control" autocomplete="on" name="modele" id="modele">
                 </div>
                 <div class="col-md-6"> 
                     <label for="plaque" class="form-label">Plaque</label> 
-                    <input type="text" class="form-control" name="plaque" id="plaque">
+                    <input type="text" class="form-control" autocomplete="on" name="plaque" id="plaque">
                 </div>
                 
                 <div class="col-md-6">
                     <label for="chauffeur" class="form-label">Chauffeur</label> 
-                    <select class="form-select" name="chauffeur" aria-label="Default select example">
+                    <select class="form-select" autocomplete="on" name="chauffeur" aria-label="Default select example">
                         <option selected disabled>Choisir un chauffeur</option>
                         <?php 
                             $query = "SELECT * FROM chauffeurs";    
@@ -67,12 +75,12 @@
                 
                 <div class="col-md-6"> 
                     <label for="telephone" class="form-label">Telephone WhatsApp</label> 
-                    <input type="number" class="form-control" name="telephone" id="telephone">
+                    <input type="number" class="form-control" autocomplete="on" name="telephone" id="telephone">
                 </div>
 
                 <div class="col-md-6"> 
                     <label for="telephone" class="form-label">Status</label> 
-                    <select class="form-select" name="status" aria-label="Default select example">
+                    <select class="form-select" autocomplete="on" name="status" aria-label="Default select example">
                         <option selected disabled>Choisir un status</option>
                         <option value="Libre">Libre</option>
                         <option value="Occuper">Occuper</option>
@@ -81,13 +89,54 @@
                 </div>
                 <div class="col-md-6"> 
                     <label for="photo" class="form-label">Photo</label> 
-                    <input type="file" class="form-control" name="photo" id="photo">
+                    <input type="file" class="form-control" autocomplete="on" name="photo" id="photo">
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card">
+                     <div class="card-body">
+                        <h5 class="card-title">Description du vehicule</h5>
+                    
+                        <textarea autocomplete="on" name="description" class="quill-editor-full form-control fs-6" placeholder="Description........."  id="" cols="" rows="3">
+                            
+                        </textarea>
+
+                     </div>
+                  </div>
                 </div>
                 
                 <div class=" text-end">
-                    <input type="submit" value="Enregistrer" class="btn btn-success" name="add_car"> 
-                    <!-- <button type="submit" class="btn btn-success" name="btn_save">Enregistrer</button>  -->
+                    <input type="submit" value="Enregistrer" class="btn btn-success" name="car_add_btn"> 
             </form>
         </div>
 </div>
-    </section>
+
+</section>
+
+
+<?php 
+    if(isset($_POST['car_add_btn'])){
+
+        $marque = $_POST['marque'];
+        $modele = $_POST['modele'];
+        $plaque = $_POST['plaque'];
+        $descr = $_POST['description'];
+        $chauffeur = $_POST['chauffeur'];
+        $status = $_POST['status'];
+        
+        $target="assets/img/uploads/".basename($_FILES['photo']['name']);
+
+        $query = $car->create($marque,$modele,$target,$plaque,$descr,$chauffeur,$status);
+        if($query){
+
+            move_uploaded_file($_FILES["photo"]["tmp_name"],$target);
+            $_SESSION['message'] = "Data insert Successfully";
+            header('Location:dashboard.php?page=pages/cars/index');
+
+        }else{
+
+            $_SESSION['error'] = "Something went wrong";           
+        }
+
+    }
+?>

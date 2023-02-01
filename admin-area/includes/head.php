@@ -1,11 +1,12 @@
-<?php 
-    include_once '../includes/db_connect.php';  
-?>
 
+<?php 
+    session_start();
+    error_reporting(0);
+?>
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Admin - Area </title>
+    <title>Event - Management </title>
     <meta name="robots" content="noindex, nofollow">
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -13,9 +14,8 @@
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    
     <!-- datatable -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet" /> -->
     <link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     
     <!-- bootstrap 5 -->
@@ -25,7 +25,6 @@
     <link href="assets/css/quill.snow.css" rel="stylesheet">
     <link href="assets/css/quill.bubble.css" rel="stylesheet">
     <link href="assets/css/remixicon.css" rel="stylesheet">
-    <!-- <link href="assets/css/simple-datatables.css" rel="stylesheet"> -->
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Alertifyjs CSS -->

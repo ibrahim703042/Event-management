@@ -1,59 +1,125 @@
- 
-<!-- table responsive -->
-<div class="card-body">
-    <h5 class="card-title">Hotels <span>| Disponible</span></h5>
-    <div class=" float-end ">
-        <a href="index.php?page=pages/hotels/add_hotel" class="btn btn-success">Add</a>
-        
+<?php 
+
+
+$select=$bdd->query("SELECT * FROM hotels ");
+
+?>
+
+<div class="pagetitle">
+    <h1>Hotels</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.php">Acceuil</a></li>
+            <li class="breadcrumb-item active">Nos hotels</li>
+        </ol>
+    </nav>
     </div>
-    <br>
-    <br>
-    <table class="table table-borderless datatable">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Customer</th>
-            <th scope="col">Product</th>
-            <th scope="col">Price</th>
-            <th scope="col">Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row"><a href="#">#2457</a></th>
-            <td>Brandon Jacob</td>
-            <td><a href="#" class="text-primary">At praesentium minu</a></td>
-            <td>$64</td>
-            <td><span class="badge bg-success">Approved</span></td>
-        </tr>
-        <tr>
-            <th scope="row"><a href="#">#2147</a></th>
-            <td>Bridie Kessler</td>
-            <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-            <td>$47</td>
-            <td><span class="badge bg-warning">Pending</span></td>
-        </tr>
-        <tr>
-            <th scope="row"><a href="#">#2049</a></th>
-            <td>Ashleigh Langosh</td>
-            <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-            <td>$147</td>
-            <td><span class="badge bg-success">Approved</span></td>
-        </tr>
-        <tr>
-            <th scope="row"><a href="#">#2644</a></th>
-            <td>Angus Grady</td>
-            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-            <td>$67</td>
-            <td><span class="badge bg-danger">Rejected</span></td>
-        </tr>
-        <tr>
-            <th scope="row"><a href="#">#2644</a></th>
-            <td>Raheem Lehner</td>
-            <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-            <td>$165</td>
-            <td><span class="badge bg-success">Approved</span></td>
-        </tr>
-        </tbody>
+    <section class="section dashboard">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="row">
+               <div class="col-12">
+                  <div class="card recent-sales overflow-auto">
+                     <div class="card-heard mx-3 mt-3">
+                        <a class="nav-link collapsed btn btn-success float-end text-white" href="dashboard.php?page=pages/hotels/add_hotel"> 
+                           <i class="bi bi-plus-circle-fill"></i> <span>Ajouter</span> 
+                        </a>
+                     </div>
+                     <br>
+                     <div class="filter mt-5">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                           <li class="dropdown-header text-start">
+                           <h6>Filter</h6>
+                           </li>
+                           <li><a class="dropdown-item" href="#">Today</a></li>
+                           <li><a class="dropdown-item" href="#">This Month</a></li>
+                           <li><a class="dropdown-item" href="#">This Year</a></li>
+                        </ul>
+                     </div>
+                        <!-- table responsive -->
+                     <div class="card-body">
+                       
+                     <table class="table table-striped datatable" id="example">
+                           <thead>
+                              <tr>
+                                 <th scope="col">#</th>
+                                 <th scope="col">Hotel</th>
+                                 <th scope="col">Photo</th>
+                                 <th scope="col">Addresse</th>
+                                 <th scope="col">Link</th>
+                                 <th>Action</th>
+                                 
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <?php
+                                 $count = 1;
+                                 while($row=$select->fetch()){
+                                    ?>
+                                       <tr>
+                                          <td >
+                                             <a href="#"><?php echo  $count ;?></a>
+                                          </td>
+                                          <td>
+                                             <?php echo  $row['hotel']; ?>
+                                          </td>
+                                          <td >
+                                             <img class="" src="<?php echo  $row['photo']; ?>" alt="profil" height="40" width="40" style="border-radius: 50px;" >
+                                          </td>
+
+                                          <td>
+                                             <?php echo  $row['addresse']; ?>
+                                          </td>
+                                          <td>
+                                             <?php echo  $row['link']; ?>
+                                          </td>
+
+                                          <td class="text-center">
+                                             <a class="text-primary me-3"  href="dashboard.php?page=pages/hotels/update_hotel&id_hotel=<?php echo  $row['id_hotel']; ?>" >
+                                                <i class="bi bi-pencil"></i>
+                                             </a>
+                                             <a class=" text-danger me-3" href="dashboard.php?page=pages/hotels/index&supp=<?php echo $row["id_hotel"]?>" 
+                                             onclick="return confirm('Voulez-vous vraiment supprimer?')">
+                                             <i class="bi bi-trash"></i></a>
+                                          </td>
+                                       </tr>
+                                       <?php $count=$count+1;?>
+                  
+            
+                                    <?php
+                                 }
+                              ?>
+                           </tbody>
     </table>
-</div>
+    </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+    </section>
+
+
+   
+
+<script language="JavaScript" type="text/javascript">
+function checkDelete(){
+    return confirm('Are you sure?');
+}
+</script>
+
+<?php
+if(isset($_GET["supp"])){
+    $idtodelete=$_GET["supp"];
+    $delete=$bdd->EXEC("DELETE FROM hotels WHERE id_hotel=$idtodelete");
+    if($delete){
+      ?>
+      <script>
+    document.location.reload();
+         
+      </script>
+      <?php
+      }
+}
+?>

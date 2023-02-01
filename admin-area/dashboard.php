@@ -1,3 +1,14 @@
+
+<?php 
+   session_start();
+   error_reporting(0);
+   
+   include '../database/db_connect.php';
+   include '../app/controller/controllerData.php';   
+   include '../app/function/function.php';
+   include '../app/middleware/middleware.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
    <?php include 'includes/head.php' ?>

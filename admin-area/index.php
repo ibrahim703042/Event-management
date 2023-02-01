@@ -1,64 +1,69 @@
 
+
 <?php
-/* // if(isset($_POST['connexion'])){
+   session_start();
+   error_reporting(0);
 
-//     $email=$_POST['email'];
-//     //$mot_passe=md5($_POST['mot_passe']);
-//     $mot_passe=$_POST['mot_passe'];
-//     $sql ="SELECT * FROM utilisateurs WHERE email=:email and mot_de_passe=:mot_passe";
-//     $query=$dbconnection->prepare($sql);
-//     $query-> bindParam(':email', $email, PDO::PARAM_STR);
-//     $query-> bindParam(':mot_passe', $mot_passe, PDO::PARAM_STR);
-//     $query-> execute();
-//     $results=$query->fetchAll(PDO::FETCH_OBJ);
+   include '../database/db_connect.php';
+   include '../app/function/function.php';
 
-//     if($query->rowCount() > 0)
-//   {
-//     $_SESSION['email']=$_POST['email'];
-//     echo "<script >document.location = 'dashboard.php'; </script>";
-//   } else{
-//     $error="Invalid Details";
-//   }
-    
-//     /* if($query->rowCount() > 0){
+   if(isset($_POST) & !empty($_POST)){
 
-//         foreach ($results as $result) {
-//             $_SESSION['odmsaid']=$result->id;
-//             $_SESSION['connexion']=$result->email;
-//             $_SESSION['permission']=$result->nom;
-//             $get=$result->Status;
-//         }
-//         $aa= $_SESSION['odmsaid'];
-//         $sql="SELECT * from utilisateurs  where id_utilisateur=:aa";
-//         $query = $dbconnection -> prepare($sql);
-//         $query->bindParam(':aa',$aa,PDO::PARAM_STR);
-//         $query->execute();
-//         $results=$query->fetchAll(PDO::FETCH_OBJ);
-//         $cnt=1;
-//         if($query->rowCount() > 0)
-//         {
-//             foreach($results as $row){            
-//                 if($row->Status=="1")
-//                 { 
-//                     //echo "<script type='text/javascript'> document.location ='dashboard.php'; </script>";
-//                   echo "<script>window.location.href='dashboard.php'</script>";                  
-//                   //header("Location:dashboard.php");
-                    
-//                 } else
-//                 { 
-//                     echo "<script>
-//                     alert('Your account was disabled Approach Admin');document.location ='index.php';
-//                     </script>";
-//                 }
-//             } 
-//         } 
-//     } 
-//     else{
-//         echo "<script>alert('Invalid Details');</script>";
-//     } */
-// } */
+      $email = mysqli_real_escape_string($conn, $_POST['email']);
+      $password = mysqli_real_escape_string($conn, $_POST['mot_passe']);
+      $encpass = $password;
+
+      $check_email = "SELECT * FROM admins WHERE email = '$email' OR nom = '$email' AND mot_passe='$encpass' AND status_admin = '1' ";
+      $res = mysqli_query($conn, $check_email);
+
+         if(mysqli_num_rows($res) > 0){
+            
+            $_SESSION['auth'] = true;
+            
+            $userdata = mysqli_fetch_array($res);
+            $userID = $userdata['ID'];
+            $useremail = $userdata['email'];
+            $userpassword = $userdata['mot_passe'];
+            $username = $userdata['nom'];
+            $status = $userdata['status_admin'];
+            $role_as = $userdata['role_as'];
+
+            if(password_verify($password, $userpassword)){
+
+               $_SESSION['auth_user'] = [
+                  'ID' => $userID,
+                  'nom' => $username,
+                  'email' => $useremail,
+               ];
+   
+               $_SESSION['admin_ID'] = $userID;
+               $_SESSION['role_as'] = $role_as;
+               $_SESSION['status'] = $status;
+   
+               if($status == 1 ){
+
+                  redirect('../admin-area/dashboard.php','Logged In Successfully');
+   
+               }else{
+                  $_SESSION['error'] = "Your account was disabled Approach Admin";
+               }
+   
+              
+            }else{
+               $_SESSION['error'] = "Incorrect email or password!";
+            }
+
+
+         }else{
+            $_SESSION['error'] = "Your account was disabled Approach Admin";
+         }
+   }
 
 ?>
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,10 +91,9 @@
                               </div>
                               <form class="row g-3 needs-validation" novalidate  method="post" enctype="multipart/form-data" >
                                  <div class="col-12">
-                                    <label for="yourEmail" class="form-label">E-mail</label>
+                                    <label for="yourEmail" class="form-label">Nom utilasteur or E-mail</label>
                                     <div class="input-group has-validation">
-                                       <!-- <span class="input-group-text" id="inputGroupPrepend">@</span>  -->
-                                       <input type="email" name="email" class="form-control" id="yourEmail" placeholder="Entrer e-mail" required>
+                                       <input type="text" name="email" class="form-control" id="yourEmail" placeholder="Entrer e-mail" required>
                                        <div class="invalid-feedback">Svp entrer votre e-mail.</div>
                                     </div>
                                  </div>
@@ -104,11 +108,8 @@
                                        <label class="form-check-label" for="rememberMe">Remember me</label></div>
                                  </div>
                                  <div class="col-12"> 
-                                    <input class="btn btn-primary w-100" type="submit" value="Se connecter" name="connexion">
-                                       
-                                    <!-- <button class="btn btn-primary w-100" type="submit" name="connexion">
-                                       Se connecter
-                                    </button> -->
+                                    <input class="btn btn-primary w-100" type="submit" value="Se connecter" name="login_btn">
+                                     
                                  </div>
                               </form>
                            </div>

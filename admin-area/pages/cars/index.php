@@ -1,4 +1,8 @@
 
+<?php 
+   // include '../../../site/images/ok.php';
+   $query =$bdd->query("SELECT voitures.*, chauffeurs.* FROM voitures INNER JOIN chauffeurs ON chauffeurs.id_chauffeur=voitures.id_chauffeur");
+?>
 <div class="pagetitle">
     <h1>Voiture</h1>
     <nav>
@@ -33,7 +37,7 @@
                   </div>
                      <!-- table responsive -->
                   <div class="card-body">
-                     <h5 class="card-title">List des vehicules</h5>
+                     <h5 class="card-title">List des Chauffeurs</h5>
 
                      <table class="table table-striped datatable" id="example">
                
@@ -50,14 +54,82 @@
                               <th scope="col" >Action </th>
                               </tr>
                         </thead>
+
                         <tbody>
-                           <?php 
+                                 <?php
+                                    $count = 1;
+                                    while($row=$query->fetch()){
+                                       
+                                       ?>
+                                       <tr>
+                                          <td classe="text-center"><?php echo($count);?></td>
+                                          <!-- <td classe="text-center"><?php print($row['id_voiture']);?></td> -->
+                                          <td classe="text-center">
+                                             <img class="" src="site/images/<?= print($row['photo_vehicule']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
+                                          </td>
+                                          <td classe="text-center"><?php print($row['modele']);?></td>
+                                          <td classe="text-center"><?php print($row['nom_marque']);?></td>
+                                          <td classe="text-center"><?php print($row['plaque']);?></td>
+                                          <td classe="text-center"><?php print($row['nom_complet']);?></td>
+                                          
+                                          <?php 
+                                             if ($row['status'] == "Libre"){
+                                                ?>
+                                                <td classe="text-center">
+                                                   <span class="badge bg-success">
+                                                      <?php print($row['status']);?>
+                                                   </span>
+                                                </td>
+                                                <?php	
+                                             }
+                                             else if ($row['status'] == "Occuper"){
+                                                ?>
+                                                <td classe="text-center">
+                                                   <span class="badge bg-danger">
+                                                      <?php print($row['status']);?>
+                                                   </span>
+                                                </td>
+                                             <?php	
+                                             }
+                                             else{
+                                                ?>
+                                                   <td classe="text-center">
+                                                      <span class="badge bg-info">
+                                                         <?php print($row['status']);?>
+                                                      </span>
+                                                   </td>
+                                                <?php	
+                                             } 
+                                          ?>
+                           
+                                          <td classe="text-center">
+                                             <span class="">
+                                                <?php  print(date("d-m-Y", strtotime($row['date_voiture'])));?>
+                                             </span>
+                                          </td>
+
+                                          <td classe="text-center"> 
+                                             
+                                             <a class=" text-info me-3" href="dashboard.php?page=pages/cars/edit_car&car_id=<?php print($row['id_voiture']);?>" >
+                                                <i class="bi bi-pencil"></i>
+                                             </a>
+                                             <!-- <a class=" text-danger me-3" href="dashboard.php?page=pages/cars/index&car_del=<?php echo $row["id_voiture"]?>" 
+                                                   onclick="checkDelete()">
+                                                   <i class="bi bi-trash"></i>
+                                             </a> -->
+                                             <button type="button" name="btn_delete" value="<?php echo $row["id_voiture"]?>"
+                                                class="text-danger border border-0 bg-transparent me-3 delete-car">
+                                                <i class="bi bi-trash"></i>
+                                             </button>
+                                          </td>
+                                       </tr>
+
+                                           <?php $count=$count+1;?>
+                                           <?php
+                                    }
                               
-                              $query = "SELECT voitures.*, chauffeurs.* FROM voitures INNER JOIN chauffeurs ON chauffeurs.id_chauffeur=voitures.id_chauffeur";    
-                              
-                              $car->dataview($query);
-                           ?>
-                        </tbody>
+                              ?>
+                           </tbody>
                         <tfoot>
                               <tr>
                                  <th scope="col"></th>
@@ -79,3 +151,36 @@
       </div>
    </div>
 </section>
+
+
+
+
+<script language="JavaScript" type="text/javascript">
+
+   $(".delete-car").click(function(e) {
+    e.preventDefault();
+    alert('hello');
+    bootbox.confirm("Are you sure you wish to delete this?", function(confirmed) {
+        if(confirmed) {
+            return true;
+        }
+      }); 
+   });
+</script>
+
+<?php
+
+   if(isset($_GET["driver_del"])){
+      
+      $id=$_GET["driver_del"];
+      $delete=$bdd->EXEC("DELETE FROM voitures WHERE id_voiture=$id");
+      
+      if($delete){
+         ?>
+         <script>
+            document.location.reload();
+         </script>
+         <?php
+         }
+   }
+?>

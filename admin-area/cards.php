@@ -14,9 +14,9 @@
             </ul>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Sales <span>| Today</span></h5>
+            <h5 class="card-title">Members <span>| Registered</span></h5>
             <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-cart"></i></div>
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-person"></i></div>
                 <div class="ps-3">
                 <h6>145</h6>
                 <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
@@ -39,17 +39,19 @@
             </ul>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Revenue <span>| This Month</span></h5>
+            <h5 class="card-title">Membres <span>| qui ont reserve</span></h5>
             <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-currency-dollar"></i></div>
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                     <i class="bi bi-people"></i></div>
                 <div class="ps-3">
-                <h6>$3,264</h6>
-                <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                <h6>3,264</h6>
+                <span class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1"></span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="col-xxl-4 col-md-6">
     <div class="card info-card sales-card">
         <div class="filter">
@@ -64,12 +66,13 @@
             </ul>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Sales <span>| Today</span></h5>
+            <h5 class="card-title">Réservations <span>| Faites</span></h5>
             <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-cart"></i></div>
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> 
+                    <i class="bi bi-person-check-fill"></i></div>
                 <div class="ps-3">
                 <h6>145</h6>
-                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                <span class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1"></span>
                 </div>
             </div>
         </div>
@@ -89,15 +92,17 @@
             </ul>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Revenue <span>| This Month</span></h5>
+            <h5 class="card-title">Réservations <span>| Annulées</span></h5>
             <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-currency-dollar"></i></div>
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> 
+                    <i class="bi bi-person-x-fill"></i></div>
                 <div class="ps-3">
-                <h6>$3,264</h6>
-                <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                <h6>3,264</h6>
+                <span class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1"></span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- end widgets -->
