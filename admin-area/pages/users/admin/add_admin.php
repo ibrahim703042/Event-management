@@ -1,3 +1,13 @@
+<?php 
+   
+   if(!isset($_SESSION['auth'])){
+    
+        header('Location:../../../index.php');
+    }
+
+?>
+
+
 
 <div class="pagetitle">
     <h1>Administrateur</h1>
@@ -86,12 +96,12 @@
         $password = $_POST['password'];
         $phone = $_POST['phone'];
         $role = $_POST['role'];
-        $status = isset($_POST['status']) ? '0':'1' ;
+        $status = isset($_POST['status']) ? '1':'0' ;
         
-        $target="assets/img/avatars/profile/".basename($_FILES['file']['name']);
+        $target=$_FILES['file']['name'];
         
         $sql="SELECT * FROM admins WHERE email = '$email' ";
-        $query = $bdd->prepare($sql);
+        $query = $dbconnection->prepare($sql);
         $query->execute();
 
         if($query->rowCount()>0){
@@ -105,7 +115,8 @@
 
         if($insert->execute(array($username,$email,$phone,$target,$role,$status,$encpass))){
 
-            move_uploaded_file($_FILES["file"]["tmp_name"],$target);
+            // move_uploaded_file($_FILES["file"]["tmp_name"],$target);
+            move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/users_image/".basename($_FILES['file']['name']));
             redirect('dashboard.php?page=pages/users/admin/index','Data insert Successfully');
             
             

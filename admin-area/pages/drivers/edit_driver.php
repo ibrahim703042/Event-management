@@ -8,6 +8,7 @@
 ?>
 
 
+
 <div class="pagetitle">
     <h1>Chauffeur</h1>
     <nav>
@@ -45,7 +46,9 @@
                     <div class="">
                         <?php 
                             ?>
-                                <img class="rounded" src="<?= $photo;?>" width="40" height="40"> 
+                                <img class="rounded" src="<?= $photo;?>" width="40" height="40">
+                                <input class="rounded" type="hidden" name="old_image" value="<?= $photo ?>"> 
+
                             <?php
                         ?>
                         <input type="hidden" name="old_image" value="<?= $photo ?>">
@@ -74,11 +77,24 @@ if(isset($_POST['driver_update_btn'])){
     $numero_telephone = $_POST['telephone'];
     $numero_permis_conduir = $_POST['permis'];
     $addresse = $_POST['addresse'];
+    $old_image = $_POST['old_image'];
 
-    $target="assets/img/avatars/drivers/".basename($_FILES['photo']['name']);
+    //$target="assets/img/avatars/drivers/".basename($_FILES['photo']['name']);
+    //$target="assets/img/drivers_image/".basename($_FILES['photo']['name']);
+
+    $newImage = $_FILES['photo']['name'];
     
+    if( $newImage !="" ){
+        $target = $newImage;
+    }else{
+        $target = $old_image;
+    }
+    
+    $target="assets/img/drivers_image/".basename($newImage);
+    // move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/users_image/".basename($_FILES['photo']['name']));
+
         
-    if($driver->update($id,$nom_complet,$numero_telephone,$numero_permis_conduir,$photo,$addresse)){
+    if($driver->update($id,$nom_complet,$numero_telephone,$numero_permis_conduir,$target,$addresse)){
 
         move_uploaded_file($_FILES["photo"]["tmp_name"],$target);
         $_SESSION['message'] = "Data updated Successfully";

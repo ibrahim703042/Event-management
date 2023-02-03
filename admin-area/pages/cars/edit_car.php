@@ -82,6 +82,7 @@
                         
                             ?>
                                 <img class="rounded" src="<?php  echo $photo_vehicule;?>" width="40" height="40"> 
+                                <input class="rounded" type="hidden" name="old_image" value="<?php  echo $photo_vehicule;?>"> 
                             <?php 
                             
                         ?>
@@ -91,22 +92,15 @@
                     <label for="photo" class="form-label">Photo</label> 
                     <input type="file" class="form-control" name="photo" id="photo">
                 </div>
-
+                
                 <div class="col-md-12">
-                    <div class="card">
-                     <div class="card-body">
-                        <h5 class="card-title">Description du vehicule</h5>
-                        <div class="quill-editor-full">
-                    
-                            <textarea name="description" class="quill-editor-full form-control fs-6" placeholder="Description........."  id="" cols="" rows="3">
-                                <?= $description ?>
-                            </textarea>
-
-                        </div>
-
-                     </div>
-                  </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Description </label>
+                        <textarea class="form-control" name="description" placeholder="Description....." id="" rows="3"><?= $description ?></textarea>
+                        
+                    </div>
                 </div>
+                
                 <div class=" text-end">
                     <button type="submit" class="btn btn-success" name="car_update_btn">Modifier</button>
                 </div> 
@@ -114,3 +108,41 @@
         </div>
     </div>
 </section>
+
+<?php
+
+    if(isset($_POST['car_update_btn'])){
+        
+        $id = $_POST['id_car'];
+        $marque = $_POST['marque'];
+        $modele = $_POST['modele'];
+        $plaque = $_POST['plaque'];
+        $descr = $_POST['description'];
+        $chauffeur = $_POST['chauffeur'];
+        $status = $_POST['status'];
+
+        $newImage = $_FILES['photo']['name'];
+        $target="assets/img/avatars/cars/".basename($newImage);
+        $old_image = $_POST['old_image'];
+        if( !empty($newImage) ){
+            $target = $newImage;
+        }else{
+            $target = $old_image;
+        }
+        
+        
+        $query = $car->update($id,$marque,$modele,$target,$plaque,$descr,$chauffeur,$status);
+        if($query){
+
+            move_uploaded_file($_FILES["photo"]["tmp_name"],$target);
+            redirect('dashboard.php?page=pages/cars/index','Data updated Successfully');
+
+
+
+        }else{
+            $_SESSION['error'] = "Something went wrong";            
+        }
+
+    }
+
+?>

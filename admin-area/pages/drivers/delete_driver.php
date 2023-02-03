@@ -5,7 +5,7 @@
 
       $id = $_GET['delete_id'];
       // $id = $_POST['id_chauffeur'];
-      $car->delete($id);
+      $driver->delete($id);
       echo "<script>alert('Data Deleted Successfully');</script>";
       echo "<script>window.location.href='dashboard.php?page=pages/drivers/index'</script>";
    }
@@ -99,8 +99,7 @@
                         if(isset($_GET['delete_id'])){
 
                            ?>
-                              <form method="POST" enctype="multipart/form-data">
-                                 <!-- <input type="hidden" name="id_chauffeur" value="<?php echo $_GET['delete_id']; ?>" /> -->
+                              elete_id']; ?>" /> -->
                                  <button type="submit" class="btn btn-danger" name="btn_del">
                                     <!-- <i class="bi bi-trash me-1"></i> -->
                                     OUI
@@ -121,3 +120,5 @@
       </div>
    </div>
 </section>
+
+?>

@@ -127,8 +127,8 @@
 
                   if(isset($_SESSION['admin_ID'])){
                      
-                     $id = $_SESSION['admin_ID'];
-                     extract($admin->getByID('admins',$id));
+                     $id_admin = $_SESSION['admin_ID'];
+                     extract($admin->getByID('admins',$id_admin));
 
                   }
 
@@ -138,7 +138,7 @@
 
                      <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         
-                        <img src="<?= $profile ?>" alt="Profile" class="rounded-circle">
+                        <img src="assets/img/users_image/<?= $profile ?>" alt="Profile" class="rounded-circle">
 
                         <span class="d-none d-md-block dropdown-toggle ps-2">
                            <?= $nom ?>

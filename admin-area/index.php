@@ -13,7 +13,7 @@
       $password = mysqli_real_escape_string($conn, $_POST['mot_passe']);
       $encpass = $password;
 
-      $check_email = "SELECT * FROM admins WHERE email = '$email' OR nom = '$email' AND mot_passe='$encpass' AND status_admin = '1' ";
+      $check_email = "SELECT * FROM admins WHERE email = '$email' OR nom = '$email' AND mot_passe='$encpass' ";
       $res = mysqli_query($conn, $check_email);
 
          if(mysqli_num_rows($res) > 0){
@@ -55,7 +55,7 @@
 
 
          }else{
-            $_SESSION['error'] = "Your account was disabled Approach Admin";
+            $_SESSION['error'] = "Ooops!!! Sorry you are not a menber.";
          }
    }
 

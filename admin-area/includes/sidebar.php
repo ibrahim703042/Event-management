@@ -4,6 +4,12 @@
       <li class="nav-item"> <a class="nav-link " href="dashboard.php?page=widget"> <i class="bi bi-grid"></i> <span>Dashboard</span> </a></li>
 
       <li class="nav-heading">Pages</li>
+
+      <!-- <li class="nav-item"> 
+         <a class="nav-link collapsed" href="dashboard.php?page=pages/users/admin/index"> 
+            <i class="bi bi-people"></i> <span>Administrateurs</span> 
+         </a>
+      </li> -->
       
       <?php
          if(isset($_SESSION['auth'])){

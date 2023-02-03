@@ -1,6 +1,6 @@
 <?php 
 
-   $query=$bdd->query("SELECT * FROM utilisateurs ORDER BY id_utilisateur ASC");
+   //$query=$bdd->query("SELECT * FROM utilisateurs ORDER BY id_utilisateur ASC");
 
 ?>
 
@@ -50,12 +50,13 @@
                                 <th scope="col">Nom</th>
                                 <th scope="col">Pays</th>
                                 <th scope="col">Payé</th>
+                                <th scope="col">Date</th>
                                 <th scope="col" >Action </th>
                               </tr>
                            </thead>
                            <tbody>
                               <?php
-                                 $count = 1;
+                                 /* $count = 1;
                                  while($data=$query->fetch()){
                                     
                                     ?>
@@ -107,7 +108,9 @@
                                  
                            
                                     <?php
-                                 }
+                                 } */
+                                 $query ="SELECT * FROM utilisateurs";    
+                                 $utilisateur->dataview($query);
                               ?>
                            </tbody>
 

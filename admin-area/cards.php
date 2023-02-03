@@ -1,3 +1,6 @@
+<?php 
+   include '../app/middleware/middleware.php';
+?>
 
 <!-- begin widgets -->
 <div class="col-xxl-4 col-md-6">

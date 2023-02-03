@@ -7,7 +7,7 @@
     //     $marque = $_POST['marque'];
     //     $modele = $_POST['modele'];
     //     $plaque = $_POST['plaque'];
-    //     $descr = $_POST['description'];
+    //     $description = $_POST['description'];
     //     $chauffeur = $_POST['chauffeur'];
     //     $status = $_POST['status'];
         
@@ -17,7 +17,7 @@
     //             VALUES(?,?,?,?,?,?)";
 
     //     $query=$bdd->prepare($sql);
-    //     $run_query = $query->execute(array($marque,$modele,$target,$plaque,$descr,$chauffeur,$status));
+    //     $run_query = $query->execute(array($marque,$modele,$target,$plaque,$description,$chauffeur,$status));
 
     //     if($run_query){
 
@@ -89,20 +89,15 @@
                 </div>
                 <div class="col-md-6"> 
                     <label for="photo" class="form-label">Photo</label> 
-                    <input type="file" class="form-control" autocomplete="on" name="photo" id="photo">
+                    <input type="file" class="form-control" name="file" id="photo">
                 </div>
 
                 <div class="col-md-12">
-                    <div class="card">
-                     <div class="card-body">
-                        <h5 class="card-title">Description du vehicule</h5>
-                    
-                        <textarea autocomplete="on" name="description" class="quill-editor-full form-control fs-6" placeholder="Description........."  id="" cols="" rows="3">
-                            
-                        </textarea>
-
-                     </div>
-                  </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Description </label>
+                        <textarea class="form-control" name="description" placeholder="Description....." id="" rows="3"><?= $description ?></textarea>
+                        
+                    </div>
                 </div>
                 
                 <div class=" text-end">
@@ -115,18 +110,17 @@
 
 
 <?php 
-    if(isset($_POST['car_add_btn'])){
+   /*  if(isset($_POST[''])){
 
         $marque = $_POST['marque'];
         $modele = $_POST['modele'];
+        $target="assets/img/uploads/".basename($_FILES['file']['name']);
         $plaque = $_POST['plaque'];
-        $descr = $_POST['description'];
+        $description = $_POST['description'];
         $chauffeur = $_POST['chauffeur'];
         $status = $_POST['status'];
         
-        $target="assets/img/uploads/".basename($_FILES['photo']['name']);
-
-        $query = $car->create($marque,$modele,$target,$plaque,$descr,$chauffeur,$status);
+        $query = $car->create($marque,$modele,$target,$plaque,$description,$chauffeur,$status);
         if($query){
 
             move_uploaded_file($_FILES["photo"]["tmp_name"],$target);
@@ -138,5 +132,35 @@
             $_SESSION['error'] = "Something went wrong";           
         }
 
+    } */
+?>
+
+
+<?php
+
+    if(isset($_POST['car_add_btn'])){
+        
+        $marque = $_POST['marque'];
+        $modele = $_POST['modele'];
+        $plaque = $_POST['plaque'];
+        $descr = $_POST['description'];
+        $chauffeur = $_POST['chauffeur'];
+        $status = $_POST['status'];
+
+        $target= $_FILES['file']['name'];
+        
+        $query = $car->create($marque,$modele,$target,$plaque,$descr,$chauffeur,$status);
+        if($query){
+
+            move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/avatars/cars/".basename($_FILES['file']['name']));
+            $_SESSION['message'] = "Data insert Successfully";
+            header('Location:dashboard.php?page=pages/cars/index');
+            header('Location:dashboard.php?page=pages/cars/index');
+
+        }else{
+            $_SESSION['error'] = "Something went wrong";            
+        }
+
     }
+
 ?>

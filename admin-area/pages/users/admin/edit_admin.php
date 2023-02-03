@@ -1,5 +1,12 @@
 
+<?php 
+   
+   if(!isset($_SESSION['auth'])){
+    
+        header('Location:../../../index.php');
+    }
 
+?>
 <?php
 
     if(isset($_GET['edit_id'])){
@@ -86,7 +93,7 @@
 
                 </div>
 
-                <div class="col-md-4"> 
+                <!-- <div class="col-md-4"> 
                     <label for="photo" class="form-label text-black-50">Ancien image</label>
                     <div class="">
                         <?php 
@@ -94,14 +101,14 @@
                                 <img class="rounded" src="<?= $profile ?>" width="70" height="70"> 
                             <?php
                         ?>
-                        <input type="hidden" value="<?= $profile ?>" name="old_image">
+                        <input type="hidden" value="assets/img/users_image/<?= $profile?>" name="old_image">
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-md-8 hide-text"> 
-                    <label for="file" t class="form-label">Photo</label> 
+                <!-- <div class="col-md-8 hide-text"> 
+                    <label for="file"  class="form-label">Photo</label> 
                     <input type="hidden" class="form-control"   name="file" id="file">
-                </div>
+                </div> -->
                 
                 
                 <div class=" text-end">
@@ -123,7 +130,7 @@
         //$password = $_POST['password'];
         $phone = $_POST['phone'];
         $role = $_POST['role'];
-        $status = isset($_POST['status']) ? '0':'1' ;
+        $status = isset($_POST['status']) ? '1':'0' ;
 
         // $target="assets/img/avatars/profile/".basename($_FILES['file']['name']);
 

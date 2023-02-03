@@ -9,17 +9,17 @@ class car
 		$this->db = $DB_con;
 	}
 	
-	public function create($nom_marque,$modele,$plaque,$photo,$descr,$chauffeur,$status){
+	public function create($marque,$modele,$target,$plaque,$description,$chauffeur,$status){
 		try
 		{
-			$query = "	INSERT INTO voitures (nom_marque,modele,photo_vehicule,plaque,description,id_chauffeur,status,date_voiture 
-						VALUES(:nom_marque,:modele,:photo,:plaque,:descr,:chauffeur,:status,Now())";
+			$query ="INSERT INTO voitures (nom_marque,modele,photo_vehicule,plaque,description,id_chauffeur,status,date_voiture) VALUES(:nom_marque,:modele,:photo,:plaque,:descr,:chauffeur,:status,Now())";
+			
 			$stmt = $this->db->prepare($query);
-			$stmt->bindparam(":nom_marque",$nom_marque);
+			$stmt->bindparam(":nom_marque",$marque);
 			$stmt->bindparam(":modele",$modele);
-			$stmt->bindparam(":photo",$photo);
+			$stmt->bindparam(":photo",$target);
 			$stmt->bindparam(":plaque",$plaque);
-			$stmt->bindparam(":descr",$descr);
+			$stmt->bindparam(":descr",$description);
 			$stmt->bindparam(":chauffeur",$chauffeur);
 			$stmt->bindparam(":status",$status);
 			
@@ -41,8 +41,16 @@ class car
 		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
 		return $editRow;
 	}
+
+	public function getAllByID($id){
+
+		$stmt = $this->db->prepare("SELECT * FROM voitures,chauffeurs WHERE chauffeurs.id_chauffeur=voitures.id_chauffeur AND id_voiture=:id");
+		$stmt->execute(array(":id"=>$id));
+		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
 	
-	public function update($id,$nom_marque,$modele,$photo,$plaque,$descr,$chauffeur,$status){
+	public function update($id,$marque,$modele,$target,$plaque,$description,$chauffeur,$status){
 
 		try
 		{
@@ -54,11 +62,11 @@ class car
 													   id_chauffeur=:chauffeur,
 													   status=:status
 													WHERE id_voiture=:id_voiture ");
-			$stmt->bindparam(":nom_marque",$nom_marque);
+			$stmt->bindparam(":nom_marque",$marque);
 			$stmt->bindparam(":modele",$modele);
-			$stmt->bindparam(":photo",$photo);
+			$stmt->bindparam(":photo",$target);
 			$stmt->bindparam(":plaque",$plaque);
-			$stmt->bindparam(":descr",$descr);
+			$stmt->bindparam(":descr",$description);
 			$stmt->bindparam(":chauffeur",$chauffeur);
 			$stmt->bindparam(":status",$status);
 			$stmt->bindparam(":id_voiture",$id);
@@ -75,7 +83,7 @@ class car
 	
 	public function delete($id){
 
-		$stmt = $this->db->prepare("DELETE FROM voitures WHERE id_voiture=:id");
+		$stmt = $this->db->prepare("DELETE * FROM voitures WHERE id_voiture=:id");
 		$stmt->bindparam(":id",$id);
 		//$stmt->execute();
 		return true;
@@ -132,7 +140,7 @@ class car
 					<td classe="text-center"><?php echo($count);?></td>
 					<!-- <td classe="text-center"><?php print($row['id_voiture']);?></td> -->
 					<td classe="text-center">
-						<img class="" src="<?php print($row['photo_vehicule']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
+						<img class="" src="assets/img/avatars/cars/<?php print($row['photo_vehicule']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
 					</td>
 					<td classe="text-center"><?php print($row['modele']);?></td>
 					<td classe="text-center"><?php print($row['nom_marque']);?></td>
@@ -175,15 +183,19 @@ class car
 						</span>
 					</td>
 					<td classe="text-center"> 
-						<a class="text-primary me-3" href="dashboard.php&page=pages/cars/view&view_id=<?php print($row['id_voiture']);?>">
+						<a class="text-primary align-middle justify-content-center me-3" href="dashboard.php?page=pages/cars/view_car&view_car_id=<?php print($row['id_voiture']);?>">
 								<i class="bi bi-eye-fill"></i>
 						</a>  
-						<a class=" text-info me-3" href="dashboard.php?page=pages/cars/edit_car&car_id=<?php print($row['id_voiture']);?>" >
+						<!-- <a class=" text-info me-3" href="dashboard.php?page=pages/cars/edit_car&car_id=<?php print($row['id_voiture']);?>" >
 							<i class="bi bi-pencil"></i>
-						</a>
-						<a class="text-danger me-3" href="dashboard.php?page=pages/cars/delete_car&delete_id=<?php print($row['id_voiture']);?>">
+						</a> -->
+
+						<!-- <a class=" text-info me-3" href="dashboard.php?page=pages/cars/delete&delete_id=<?php print($row['id_chauffeur']);?>" >
+							
+							<button class=" text-danger border border-0 bg-transparent" onClick="return confirm('Do you really want to delete');">
 								<i class="bi bi-trash"></i>
-						</a>
+							</button>
+						</a> -->
 					</td>
 				</tr>
                 <?php $count=$count+1;?>

@@ -17,6 +17,14 @@ class driver
 		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
 		return $editRow;
 	}
+
+	public function getByID($table,$id){
+
+		$stmt = $this->db->prepare("SELECT * FROM $table WHERE id_chauffeur=:id");
+		$stmt->execute(array(":id"=>$id));
+		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
+		return $editRow;
+	}
 	
 	public function update($id,$fullName,$telephone,$permis,$photo,$addresse){
 
@@ -50,7 +58,7 @@ class driver
 
 		$stmt = $this->db->prepare("DELETE FROM chauffeurs WHERE id_chauffeur=:id");
 		$stmt->bindparam(":id",$id);
-		//$stmt->execute();
+		$stmt->execute();
 		return true;
 	}
 
@@ -70,7 +78,7 @@ class driver
 					<td classe="text-center"><?php echo($count);?></td>
 					<!-- <td classe="text-center"><?php print($row['id_chauffeur']);?></td> -->
 					<td classe="text-center">
-						<img class="" src="<?php print($row['photo']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
+						<img class="" src="assets/img/avatars/drivers/<?php print($row['photo']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
 					</td>
 					<td classe="text-center"><?php print($row['nom_complet']);?></td>
 					
@@ -83,24 +91,19 @@ class driver
 							<?php  print(date("d-m-Y", strtotime($row['date_chauffeur'])));?>
 						</span>
 					</td>
-					<td classe="text-center"> 
-						<a class=" text-info me-3" href="dashboard.php?page=pages/drivers/view_driver&view_id=<?php print($row['id_chauffeur']);?>" >
+					<td classe="text-center "> 
+						<a class=" text-info me-3" href="dashboard.php?page=pages/drivers/view_driver&view_driver_id=<?php print($row['id_chauffeur']);?>" >
 							<i class="bi bi-eye-fill"></i>
 						</a>
-						<a class=" text-info me-3" href="dashboard.php?page=pages/drivers/edit_driver&edit_id=<?php print($row['id_chauffeur']);?>" >
-							<i class="bi bi-pencil"></i>
-						</a>
-						<!-- <a class="text-danger me-3" href="dashboard.php?page=pages/drivers/delete_driver&delete_id=<?php print($row['id_chauffeur']);?>">
+
+						<!-- <a class=" text-info me-3" href="dashboard.php?page=pages/drivers/delete&delete_id=<?php print($row['id_chauffeur']);?>" >
+							
+							<button class=" text-danger border border-0 bg-transparent" onClick="return confirm('Do you really want to delete');">
 								<i class="bi bi-trash"></i>
+							</button>
 						</a> -->
-						<a class=" text-danger me-3" href="dashboard.php?page=pages/drivers/index&driver_del=<?php echo $row["id_chauffeur"]?>" 
-							onclick="checkDelete()">
-							<i class="bi bi-trash"></i>
-						</a>
-						<!-- <button type="button" name="btn_delete" value="<?php echo $row["id_chauffeur"]?>"
-								class="text-danger border border-0 bg-transparent me-3 delete-driver">
-								<i class="bi bi-trash"></i>
-						</button> -->
+						
+
 					</td>
 				</tr>
                 <?php 

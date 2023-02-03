@@ -29,7 +29,7 @@
          <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-               <img src="<?= $profile?>" alt="<?= $nom?>" class="rounded-circle">
+               <img src="assets/img/users_image/<?= $profile?>" alt="<?= $nom?>" class="rounded-circle">
                
                <h2><?= $nom ?></h2>
                <h3><?= $email ?></h3>
@@ -151,10 +151,24 @@
                            ?>
                         </div>
                         <div class="col-lg-5 col-md-5">
+
                            <a href="dashboard.php?page=pages/users/admin/edit_admin&edit_id=<?= $ID ?>">
-                              Modifier le status
+                              <button class=" btn btn-sm btn-info border border-0" onClick="return confirm('Do you really want to update');">
+                                 <i class="bi bi-pencil me-2"></i>Modifier 
+                              </button>
                            </a>
+                           <!-- <a class="  me-3" href="dashboard.php?page=pages/users/admin/index&delete_id=<?= $id_chauffeur ?>" >
+                                 
+                                 <button class=" btn btn-danger btn-sm border border-0" onClick="return confirm('Do you really want to delete');">
+                                    <i class="bi bi-trash me-2"></i>Supprimer
+                                 </button>
+                                 
+                           </a> -->
+
                         </div>
+                           
+                              
+                              
 
                      </div>
                      
@@ -172,14 +186,14 @@
                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                            <div class="col-md-8 col-lg-9">
 
-                              <img src="<?= $profile?>" alt="Profile">
+                              <img src="assets/img/users_image/<?= $profile?>" alt="Profile">
                               <input type="hidden" value="<?= $profile?>" name="old_image">
 
                               <div class="pt-2">
                             
                                  <span class="" title="Upload new profile image">
                                     <input type="file" name="file">
-                                    <button type="submit" class="btn btn-success" name="update_image_btn">
+                                    <button type="submit" class="btn btn-success" name="update_admin_image_btn">
                                        <i class="bi bi-upload"></i>
                                     </button>
                                  </span>
@@ -199,14 +213,14 @@
                         <div class="row mb-3">
                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nom d'utilisateur</label>
                            <div class="col-md-8 col-lg-9"> 
-                              <input name="nom" type="text" class="form-control" id="fullName" value="<?= $nom?>">
+                              <input name="username" type="text" class="form-control" id="fullName" value="<?= $nom?>">
                            </div>
                         </div>
 
                         <div class="row mb-3">
                            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Email</label>
                            <div class="col-md-8 col-lg-9"> 
-                              <input name="mail" type="text" class="form-control" id="Job" value="<?= $email?>">
+                              <input name="email" type="text" class="form-control" id="Job" value="<?= $email?>">
                            </div>
                         </div>
 
@@ -217,7 +231,7 @@
                            </div>
                         </div>
 
-                        <!-- role -->
+                        
                         <div class="row mb-3">
 
                            <label for="role" class="col-md-4 col-lg-3 col-form-label">Role</label>
@@ -252,7 +266,7 @@
 
                         </div>
 
-                        <!-- status -->
+                        
                         <div class="row mb-3">
 
                            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Status</label>
@@ -324,45 +338,34 @@
 
 <?php
 
-   if(isset($_POST['update_image_btn'])){
+   if(isset($_POST["update_admin_image_btn"])){
+            
+      $old_image= $_POST["old_image"];
 
+      $newImage = $_FILES['file']['name'];
 
-      $target="assets/img/avatars/profile/".basename($_FILES['file']['name']);
-      
-      $query = $admin->update_image($id,$target);
-
-      if($query){
-
-         move_uploaded_file($_FILES["file"]["tmp_name"],$target);
-         redirect('dashboard.php?page=pages/users/admin/profile&','Data Updated Successfully');
-
+      if( $newImage != "" ){
+         $target = $newImage;
       }else{
-         error('dashboard.php?page=pages/users/admin/profile','Something went wrong!');            
+         $target = $old_image;
+         redirect('dashboard.php?page=pages/users/admin/index','Data Updated Successfully');
+
       }
 
-   }
+         
+         $query = $admin->update_image($id,$target);
 
-   if(isset($_POST['update_profil_btn'])){
+         if($query){
 
-   $username = $_POST['nom'];
-   $email = $_POST['mail'];
-   //$password = $_POST['password'];
-   $phone = $_POST['phone'];
-   $role = $_POST['role'];
-   $status = isset($_POST['status']) ? '0':'1' ;
+            move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/users_image/".basename($_FILES['file']['name']));
+            redirect('dashboard.php?page=pages/users/admin/index','Data Updated Successfully');
 
+         }else{
+            error('dashboard.php?page=pages/users/admin/profile','Something went wrong!');            
+         }
       
-      $query = $admin->update_profile($id,$username,$email,$phone,$role,$status);
-
-      if($query){
-
-         //move_uploaded_file($_FILES["file"]["tmp_name"],$target);
-         redirect('dashboard.php?page=pages/users/admin/profile','Data Updated Successfully');
-
-      }else{
-         error('dashboard.php?page=pages/users/admin/profile','Something went wrong!');            
-      }
-
+      /* $update=$bdd->EXEC("UPDATE utilisateurs SET photo='$target' WHERE id_utilisateur=".$_GET["id"]."");
+      redirect('dashboard.php?page=pages/users/participant/index','Profile updated Successfully'); */
    }
 
    if(isset($_POST['update_password_btn'])){
@@ -398,3 +401,47 @@
    }
 
 ?>
+
+
+<?php
+
+?>
+
+
+<?php
+      if(isset($_POST["update_profil_btn"])){
+
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $role = $_POST['role'];
+        $status = isset($_POST['status']) ? '1':'0' ;
+
+         $update=$bdd->EXEC("UPDATE admins SET nom='$username',telephone='$phone',email='$email', status_admin='$status',role_as='$role' WHERE ID='$id'");
+         if($update){
+            redirect('dashboard.php?page=pages/users/admin/index','Data updated Successfully');
+         }else{
+            error('dashboard.php?page=pages/users/admin/index','Data updated Successfully');
+         }
+         
+      }
+
+      /* if(isset($_POST["update_user_image_btn"])){
+         
+         $old_image= $_POST["old_image"];
+
+         $newImage = $_FILES['file']['name'];
+    
+         if( $newImage != "" ){
+            $target = $newImage;
+         }else{
+            $target = $old_image;
+            redirect('dashboard.php?page=pages/users/admin/index','Profile updated Successfully');
+
+         }
+         
+         move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/users_image/".basename($_FILES['file']['name']));
+         $update=$bdd->EXEC("UPDATE utilisateurs SET photo='$target' WHERE id_utilisateur=".$_GET["id"]."");
+         redirect('dashboard.php?page=pages/users/participant/index','Profile updated Successfully');
+      } */
+   ?>

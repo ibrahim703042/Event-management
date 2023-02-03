@@ -116,7 +116,7 @@ if(isset($_GET["supp"])){
     if($delete){
       ?>
       <script>
-    document.location.reload();
+         document.location.reload();
          
       </script>
       <?php

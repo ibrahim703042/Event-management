@@ -1,5 +1,7 @@
 <?php
 
+    //include '../../database/db_connect.php';
+
     if(isset($_SESSION['auth'])){
 
         if($_SESSION['status'] != 1 ){

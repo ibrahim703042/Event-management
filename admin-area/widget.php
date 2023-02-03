@@ -1,4 +1,6 @@
-<?php ?>
+<?php 
+   include '../app/middleware/middleware.php';
+?>
 
 <div class="pagetitle">
     <h1>Dashboard</h1>

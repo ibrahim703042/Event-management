@@ -1,7 +1,6 @@
 
 <?php 
-   // include '../../../site/images/ok.php';
-   $query =$bdd->query("SELECT voitures.*, chauffeurs.* FROM voitures INNER JOIN chauffeurs ON chauffeurs.id_chauffeur=voitures.id_chauffeur");
+   //$query =$bdd->query("SELECT voitures.*, chauffeurs.* FROM voitures INNER JOIN chauffeurs ON chauffeurs.id_chauffeur=voitures.id_chauffeur");
 ?>
 <div class="pagetitle">
     <h1>Voiture</h1>
@@ -57,7 +56,7 @@
 
                         <tbody>
                                  <?php
-                                    $count = 1;
+                                    /* $count = 1;
                                     while($row=$query->fetch()){
                                        
                                        ?>
@@ -65,7 +64,7 @@
                                           <td classe="text-center"><?php echo($count);?></td>
                                           <!-- <td classe="text-center"><?php print($row['id_voiture']);?></td> -->
                                           <td classe="text-center">
-                                             <img class="" src="site/images/<?= print($row['photo_vehicule']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
+                                             <img class="" src="<?= print($row['photo_vehicule']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
                                           </td>
                                           <td classe="text-center"><?php print($row['modele']);?></td>
                                           <td classe="text-center"><?php print($row['nom_marque']);?></td>
@@ -126,9 +125,11 @@
 
                                            <?php $count=$count+1;?>
                                            <?php
-                                    }
-                              
-                              ?>
+                                    } */
+
+                                    $query = "SELECT voitures.*, chauffeurs.* FROM voitures INNER JOIN chauffeurs ON chauffeurs.id_chauffeur=voitures.id_chauffeur";    
+                                    $car->dataview($query);
+                                 ?>
                            </tbody>
                         <tfoot>
                               <tr>

@@ -1,6 +1,16 @@
 <?php 
+   
+   if(!isset($_SESSION['auth'])){
+    
+        header('Location:../../../index.php');
+    }
+
+?>
+
+<?php 
 
    $query=$bdd->query("SELECT * FROM admins ORDER BY ID ASC");
+   
 
 ?>
 
@@ -48,7 +58,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Profile</th>
                                 <th scope="col">Nom</th>
-                                <th scope="col">E-mail</th>
+                                <!-- <th scope="col">E-mail</th> -->
                                 <!-- <th scope="col">Telephone</th> -->
                                 <th scope="col">Role</th>
                                 <th scope="col">Status</th>
@@ -66,10 +76,10 @@
                                           <td classe="text-center"><?php echo($count);?></td>
                                           <!-- <td classe="text-center"><?php echo($data['id_utilisateur']);?></td> -->
                                           <td classe="text-center">
-                                             <img class="" src="<?php echo($data['profile']);?>" alt="<?php echo($data['profile']);?>" height="40" width="40" style="border-radius: 50px;" >
+                                             <img class="" src="assets/img/users_image/<?php echo($data['profile']);?>" alt="<?php echo($data['profile']);?>" height="40" width="40" style="border-radius: 50px;" >
                                           </td>
                                           <td classe="text-center"><?php echo($data['nom']);?></td>
-                                          <td classe="text-center"><?php echo($data['email']);?></td>
+                                          <!-- <td classe="text-center"><?php echo($data['email']);?></td> -->
                                           <!-- <td classe="text-center"><?php echo($data['telephone']);?></td> -->
                                                    
                                           <?php 
@@ -144,7 +154,7 @@
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                                 <th scope="col">Nom</th>
-                                <th scope="col">E-mail</th>
+                                <!-- <th scope="col">E-mail</th> -->
                                 <th scope="col">Role</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Date</th>
@@ -163,38 +173,3 @@
       </div>
 </section>
 
-
-<script language="JavaScript" type="text/javascript">
-function checkDelete(){
-    return confirm('Voulez-vous vraiment supprimer ?');
-}
-</script>
-
-<?php
-
-   if(isset($_GET["supp"])){
-      $idtodelete=$_GET["supp"];
-      $delete=$bdd->EXEC("DELETE FROM utilisateurs WHERE id_utilisateur=$idtodelete");
-   }
-
-?>
-
-<?php
-
-   if(isset($_GET["stat"])){
-      $id=$_GET["stat"];
-      $statut=1;
-      $update=$bdd->EXEC("UPDATE utilisateurs SET status='$statut' WHERE id_utilisateur=$id");
-
-      if($update){
-
-      ?>
-         <script>
-            document.location.reload();
-            
-         </script>
-      <?php
-      }
-   }
-
-?>

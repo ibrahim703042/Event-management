@@ -50,7 +50,7 @@
         $permis = $_POST['permis'];
         $addresse = $_POST['addresse'];
         
-        $target="assets/img/avatars/drivers/".basename($_FILES['photo']['name']);
+        $target= $_FILES['photo']['name'];
 
 
         $sql ="INSERT INTO chauffeurs (nom_complet,numero_telephone,numero_permis_conduir,photo,addresse,date_chauffeur) 
@@ -61,14 +61,11 @@
 
         if($run_query){
 
-            move_uploaded_file($_FILES["photo"]["tmp_name"],$target);
-            $_SESSION['message'] = "Data insert Successfully";
-            header('Location:dashboard.php?page=pages/drivers/index');
-
+            move_uploaded_file($_FILES["photo"]["tmp_name"],"assets/img/avatars/drivers/".basename($_FILES['photo']['name']));
+            redirect('dashboard.php?page=pages/drivers/index','Data insert Successfully');
+        
         }else{
-
-            $_SESSION['error'] = "Something went wrong";
-            header('Location:dashboard.php?page=pages/drivers/add_driver'); 
+            error('dashboard.php?page=pages/drivers/index','Something went wrong');
         }
 
     }
