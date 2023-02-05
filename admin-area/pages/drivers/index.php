@@ -52,7 +52,7 @@ include '../database/db_connect.php';
                               <th scope="col" >Action </th>
                            </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="">
                               
                               <?php 
                            
@@ -101,12 +101,8 @@ include '../database/db_connect.php';
 
             if($query){
                ?>
-               <script>
-                  
-                  document.location.reload();
-            
-                  
-               </script>
+               <!-- <script>document.location.reload();</script> -->
+               <script>window.location.href='dashboard.php?page=pages/driver/index'</script>
                <?php
                }
             //echo "<script>alert('Record Delete successfully');</script>";

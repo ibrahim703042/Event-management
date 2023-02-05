@@ -51,7 +51,7 @@
                         ?>
                         <option disabled>Choisir un chauffeur</option>
                         <?php 
-                            $query = "SELECT * FROM chauffeurs ";    
+                            $query = "SELECT * FROM chauffeurs where status_chauffeur = 0 ";    
                             $car->data($query);
                         ?>
                         

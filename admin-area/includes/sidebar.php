@@ -35,6 +35,13 @@
                                  <i class="bi bi-people"></i> <span>Membres</span> 
                               </a>
                            </li>
+
+                           <li class="nav-item"> 
+                              <a class="nav-link collapsed" href="dashboard.php?page=pages/participants/index"> 
+                                 <i class="bi bi-people"></i> <span>Participant</span> 
+                              </a>
+                           </li>
+
                            <li class="nav-item"> 
                               <a class="nav-link collapsed" href="dashboard.php?page=pages/drivers/index"> 
                                  <i class="bi bi-person-circle"></i> <span>Chauffeurs</span> 

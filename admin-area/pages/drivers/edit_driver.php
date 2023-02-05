@@ -37,28 +37,27 @@
                     <label for="permis" class="form-label">Numero de permis de condurie</label> 
                     <input type="text" class="form-control" value="<?= $numero_permis_conduir;?>" name="permis" id="permis" placeholder="Entrer Id de permis de conduire">
                 </div>
-                <div class="col-md-6"> 
+                <div class="col-md-12"> 
                     <label for="adresse" class="form-label">Addresse</label> 
                     <input type="text" class="form-control" value="<?= $addresse;?>" name="addresse" id="addresse" placeholder="Entrer addresse">
                 </div>
-                <div class="col-md-2"> 
+                <!-- <div class="col-md-2"> 
                     <label for="photo" class="form-label text-black-50">Ancien image</label>
                     <div class="">
                         <?php 
                             ?>
-                                <img class="rounded" src="<?= $photo;?>" width="40" height="40">
+                                <img class="rounded" src="assets/img/avatars/drivers/<?= $photo;?>" width="40" height="40">
                                 <input class="rounded" type="hidden" name="old_image" value="<?= $photo ?>"> 
 
                             <?php
                         ?>
                         <input type="hidden" name="old_image" value="<?= $photo ?>">
-                        <input type="hidden" name="id_driver" value="<?= $id_chauffeur ?>">
                     </div>
-                </div>
-                <div class="col-md-4"> 
+                </div> -->
+                <!-- <div class="col-md-4"> 
                     <label for="photo" class="form-label">Photo</label> 
                     <input type="file" class="form-control" name="photo" id="photo">
-                </div>
+                </div> -->
                 
                 <div class=" text-end"> 
                     <button type="submit" class="btn btn-success" name="driver_update_btn">Modifier</button> 
@@ -72,34 +71,28 @@
 
 if(isset($_POST['driver_update_btn'])){
 
-    $id = $_POST['id_driver'];
     $nom_complet = $_POST['nom_complet'];
     $numero_telephone = $_POST['telephone'];
     $numero_permis_conduir = $_POST['permis'];
     $addresse = $_POST['addresse'];
-    $old_image = $_POST['old_image'];
 
-    //$target="assets/img/avatars/drivers/".basename($_FILES['photo']['name']);
-    //$target="assets/img/drivers_image/".basename($_FILES['photo']['name']);
+    /* $target= $_FILES['photo']['name'];
+    $old_image= $_POST["old_image"];
 
     $newImage = $_FILES['photo']['name'];
-    
-    if( $newImage !="" ){
+
+    if( $newImage != "" ){
         $target = $newImage;
     }else{
         $target = $old_image;
-    }
-    
-    $target="assets/img/drivers_image/".basename($newImage);
-    // move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/users_image/".basename($_FILES['photo']['name']));
+        redirect('dashboard.php?page=pages/drivers/index','Data Updated Successfully');
 
-        
-    if($driver->update($id,$nom_complet,$numero_telephone,$numero_permis_conduir,$target,$addresse)){
+    } */
+            
+    if($driver->update($id,$nom_complet,$numero_telephone,$numero_permis_conduir,$addresse)){
 
-        move_uploaded_file($_FILES["photo"]["tmp_name"],$target);
-        $_SESSION['message'] = "Data updated Successfully";
-
-        header('Location:dashboard.php?page=pages/drivers/index');
+        // move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/avatars/drivers/".basename($_FILES['photo']['name']));
+        redirect('dashboard.php?page=pages/drivers/index','Data Updated Successfully');
     }
     else{
         echo "<script>alert('Operation Failed');</script>";

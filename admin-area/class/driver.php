@@ -26,21 +26,19 @@ class driver
 		return $editRow;
 	}
 	
-	public function update($id,$fullName,$telephone,$permis,$photo,$addresse){
+	public function update($id,$fullName,$telephone,$permis,$addresse){
 
 		try
 		{
 			$stmt=$this->db->prepare("UPDATE chauffeurs SET nom_complet=:fullName, 
 		                                               numero_telephone=:telephone, 
 													   numero_permis_conduir=:permis, 
-													   photo=:photo,
 													   addresse=:addresse
 
 													WHERE id_chauffeur=:id_chauffeur ");
 			$stmt->bindparam(":fullName",$fullName);
 			$stmt->bindparam(":telephone",$telephone);
 			$stmt->bindparam(":permis",$permis);
-			$stmt->bindparam(":photo",$photo);
 			$stmt->bindparam(":addresse",$addresse);
 			$stmt->bindparam(":id_chauffeur",$id);
 			$stmt->execute();

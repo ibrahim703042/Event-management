@@ -44,7 +44,7 @@ class car
 
 	public function getAllByID($id){
 
-		$stmt = $this->db->prepare("SELECT * FROM voitures,chauffeurs WHERE chauffeurs.id_chauffeur=voitures.id_chauffeur AND id_voiture=:id");
+		$stmt = $this->db->prepare("SELECT * FROM voitures,chauffeurs WHERE chauffeurs.id_chauffeur=voitures.id_chauffeur AND voiutures.id_voiture=:id");
 		$stmt->execute(array(":id"=>$id));
 		$editRow=$stmt->fetch(PDO::FETCH_ASSOC);
 		return $editRow;
@@ -145,7 +145,7 @@ class car
 					<td classe="text-center"><?php print($row['modele']);?></td>
 					<td classe="text-center"><?php print($row['nom_marque']);?></td>
 					<td classe="text-center"><?php print($row['plaque']);?></td>
-					<td classe="text-center"><?php print($row['nom_complet']);?></td>
+					<!-- <td classe="text-center"><?php print($row['nom_complet']);?></td> -->
 					
 					<?php 
 						if ($row['status'] == "Libre"){

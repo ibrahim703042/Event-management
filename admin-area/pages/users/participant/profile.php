@@ -1,6 +1,6 @@
 <?php 
    $bdd=new PDO('mysql:host=localhost;dbname=event;charset=utf8','root','');
-   $select=$bdd->query("SELECT * FROM utilisateurs WHERE id_utilisateur=".$_GET["id"]."");
+   $select=$bdd->query("SELECT * FROM utilisateurs WHERE id_utilisateur=".$_GET["profile_id"]."");
    $data=$select->fetch();
 ?>
 
@@ -132,11 +132,11 @@
                            </div>
                            <div class="col-lg-5 col-md-5">
 
-                              <a href="dashboard.php?page=pages/users/participant/approve_payement&edit_id=<?= $id_utilisateur ?>">
+                              <a class="text-primary me-3" href="dashboard.php?page=pages/users/participant/approve_payement&payement_id=<?php echo $data['id_utilisateur'];?>">
                                  <button class=" btn btn-sm btn-info border border-0" onClick="return confirm('Do you really want to update');">
                                     <i class="bi bi-pencil me-2"></i>Approuver le payement
                                  </button>
-                              </a>
+                              </a>  
                               <!-- <a class="  me-3" href="dashboard.php?page=pages/users/admin/delete&delete_id=<?= $_GET["id"] ?>" >
                                     
                                     <button class=" btn btn-danger btn-sm border border-0" onClick="return confirm('Do you really want to delete');">
@@ -243,7 +243,8 @@
             <div class="card">
                <div class="card-body pt-3">
                   <ul class="nav nav-tabs nav-tabs-bordered">
-                     <li class="nav-item"> <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Soirees</button></li>
+                     <li class="nav-item"> 
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Soirees</button></li>
                      </ul>
                   <div class="tab-content pt-2">
                      <div class="tab-pane fade show active profile-overview" id="profile-overview">

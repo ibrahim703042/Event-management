@@ -153,9 +153,21 @@
         if($query){
 
             move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/avatars/cars/".basename($_FILES['file']['name']));
-            $_SESSION['message'] = "Data insert Successfully";
-            header('Location:dashboard.php?page=pages/cars/index');
-            header('Location:dashboard.php?page=pages/cars/index');
+            $last_id = $query->lastInsertId();
+            // $_SESSION['message'] = "Data insert Successfully";
+            // header('Location:dashboard.php?page=pages/cars/index');
+            // header('Location:dashboard.php?page=pages/cars/index');
+
+            $sql = "UPDATE chauffeurs SET status_chauffeur = 1
+                WHERE id_chauffeur = (SELECT id_chauffeur FROM voitures 
+                WHERE id_voiture = '$last_id')";
+            $update=$bdd->EXEC($ql);
+            if($update){
+                redirect('dashboard.php?page=pages/cars/index','Data insert Successfully');
+            }else{
+                $_SESSION['error'] = "Failed to insert into Driver tabble";
+            }
+            
 
         }else{
             $_SESSION['error'] = "Something went wrong";            

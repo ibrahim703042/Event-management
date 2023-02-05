@@ -32,6 +32,7 @@ if(isset($_GET['view_driver_id'])){
            <img src="assets/img/avatars/drivers/<?= $photo?>" alt="<?= $nom_complet?>" class="rounded w-100">
             <div class="social-links mt-2"> 
                     <h2><?= $nom_complet ?></h2>
+                    
             </div>
         </div>
      </div>
@@ -100,7 +101,7 @@ if(isset($_GET['view_driver_id'])){
                  <div class="col-lg-3 col-md-4 label">Status</div>
                     <div class="col-lg-4 col-md-4">
                        <?php 
-                          if ($status_driver == 1){
+                          if ($status_chauffeur == 0){
 
                              ?>
                                 <td classe="text-center">
@@ -208,14 +209,12 @@ if(isset($_GET['view_driver_id'])){
       }
 
       $query=$bdd->EXEC("UPDATE chauffeurs SET photo='$target' WHERE id_chauffeur=".$_GET["view_driver_id"]."");
-      redirect('dashboard.php?page=pages/users/participant/index','Profile updated Successfully');
-
       //$query = $admin->update_image($id,$target);
 
       if($query){
 
          move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/avatars/drivers/".basename($_FILES['file']['name']));
-         redirect('dashboard.php?page=pages/driver/index','Data Updated Successfully');
+         redirect('dashboard.php?page=pages/drivers/index','Data Updated Successfully');
 
       }else{
          error('dashboard.php?page=pages/driver/index','Something went wrong!');

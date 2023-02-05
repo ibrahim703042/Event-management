@@ -1,7 +1,7 @@
 <?php
-    $errors = array();
+
     
-    if(isset($_POST["add_user_btn"])){
+    /* if(isset($_POST[""])){
 
         $fname = $_POST['nom'];
         $lname = $_POST['prenom'];
@@ -36,7 +36,7 @@
             error('dashboard.php?page=pages/users/participant//add_user','Something went wrong');
         }
     
-    }    
+    }     */
 ?>
 
 
@@ -121,3 +121,47 @@
         </div>
     </div>
 </section>
+
+
+<?php
+
+    if(isset($_POST["add_user_btn"])){
+
+        $fname = $_POST['nom'];
+        $lname = $_POST['prenom'];
+        $email = $_POST['email'];
+        $phone = $_POST['telephone'];
+        $country = $_POST['pays'];
+        $passport = $_POST['passport'];
+        $rotary = $_POST['rotary'];
+        
+        $payement_status = isset($_POST['status']) ? '1':'0' ;
+        $fileName=$_FILES["file"]["name"];
+
+        $sql="SELECT * FROM utilisateurs WHERE email = '$email' ";
+        $query = $dbconnection->prepare($sql);
+		$query->execute();
+
+        if($query->rowCount()>0){
+            
+            error('dashboard.php?page=pages/users/add_user','Email that you have entered is already exist!');
+        }
+        else{
+            $qrcode = 0;
+            $qr_status = "No Qrcode still unpaid";
+        
+            $insert = $user->create($fname,$lname,$email,$phone,$passport,$fileName,$country,$rotary,$payement_status,$qrcode,$qr_status);
+            if($insert){
+
+                move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/users_image/".basename($_FILES['file']['name']));
+                redirect('dashboard.php?page=pages/users/participant/index','Data insert Successfully');
+
+                
+            }else{
+                // echo "<script>alert('Operation Failed');</script>";
+                error('dashboard.php?page=pages/users/participant//add_user','Something went wrong');
+            }
+        }
+    
+    }  
+?>

@@ -9,7 +9,7 @@ if(isset($_SESSION['auth'])){
       if(isset($_REQUEST['view_car_id'])){
          
          $id = $_GET['view_car_id'];
-         extract($car->getAllByID($id));	
+         extract($car->getID($id));	
          ?>
 
             <div class="pagetitle">

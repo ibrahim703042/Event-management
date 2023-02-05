@@ -47,89 +47,17 @@
                               <th scope="col">Model</th>
                               <th scope="col">Marque</th>
                               <th scope="col">Plaque</th>
-                              <th scope="col">Chauffeur</th>
+                              <!-- <th scope="col">Chauffeur</th> -->
                               <th scope="col">Status</th>
                               <th scope="col" >Date </th>
                               <th scope="col" >Action </th>
                               </tr>
                         </thead>
-
                         <tbody>
-                                 <?php
-                                    /* $count = 1;
-                                    while($row=$query->fetch()){
-                                       
-                                       ?>
-                                       <tr>
-                                          <td classe="text-center"><?php echo($count);?></td>
-                                          <!-- <td classe="text-center"><?php print($row['id_voiture']);?></td> -->
-                                          <td classe="text-center">
-                                             <img class="" src="<?= print($row['photo_vehicule']);?>" alt="car-image" height="40" width="40" style="border-radius: 50px;" >
-                                          </td>
-                                          <td classe="text-center"><?php print($row['modele']);?></td>
-                                          <td classe="text-center"><?php print($row['nom_marque']);?></td>
-                                          <td classe="text-center"><?php print($row['plaque']);?></td>
-                                          <td classe="text-center"><?php print($row['nom_complet']);?></td>
-                                          
-                                          <?php 
-                                             if ($row['status'] == "Libre"){
-                                                ?>
-                                                <td classe="text-center">
-                                                   <span class="badge bg-success">
-                                                      <?php print($row['status']);?>
-                                                   </span>
-                                                </td>
-                                                <?php	
-                                             }
-                                             else if ($row['status'] == "Occuper"){
-                                                ?>
-                                                <td classe="text-center">
-                                                   <span class="badge bg-danger">
-                                                      <?php print($row['status']);?>
-                                                   </span>
-                                                </td>
-                                             <?php	
-                                             }
-                                             else{
-                                                ?>
-                                                   <td classe="text-center">
-                                                      <span class="badge bg-info">
-                                                         <?php print($row['status']);?>
-                                                      </span>
-                                                   </td>
-                                                <?php	
-                                             } 
-                                          ?>
-                           
-                                          <td classe="text-center">
-                                             <span class="">
-                                                <?php  print(date("d-m-Y", strtotime($row['date_voiture'])));?>
-                                             </span>
-                                          </td>
-
-                                          <td classe="text-center"> 
-                                             
-                                             <a class=" text-info me-3" href="dashboard.php?page=pages/cars/edit_car&car_id=<?php print($row['id_voiture']);?>" >
-                                                <i class="bi bi-pencil"></i>
-                                             </a>
-                                             <!-- <a class=" text-danger me-3" href="dashboard.php?page=pages/cars/index&car_del=<?php echo $row["id_voiture"]?>" 
-                                                   onclick="checkDelete()">
-                                                   <i class="bi bi-trash"></i>
-                                             </a> -->
-                                             <button type="button" name="btn_delete" value="<?php echo $row["id_voiture"]?>"
-                                                class="text-danger border border-0 bg-transparent me-3 delete-car">
-                                                <i class="bi bi-trash"></i>
-                                             </button>
-                                          </td>
-                                       </tr>
-
-                                           <?php $count=$count+1;?>
-                                           <?php
-                                    } */
-
-                                    $query = "SELECT voitures.*, chauffeurs.* FROM voitures INNER JOIN chauffeurs ON chauffeurs.id_chauffeur=voitures.id_chauffeur";    
-                                    $car->dataview($query);
-                                 ?>
+                           <?php
+                              $query = "SELECT * from voitures";    
+                              $car->dataview($query);
+                           ?>
                            </tbody>
                         <tfoot>
                               <tr>
@@ -138,7 +66,7 @@
                                  <th scope="col">Model</th>
                                  <th scope="col">Marque</th>
                                  <th scope="col">Plaque</th>
-                                 <th scope="col">Chauffeur</th>
+                                 <!-- <th scope="col">Chauffeur</th> -->
                                  <th scope="col">Status</th>
                                  <th scope="col" >Date </th>
                                  <th scope="col" ></th>

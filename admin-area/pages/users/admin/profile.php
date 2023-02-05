@@ -94,7 +94,7 @@
                <!-- start scrollable of content id -->
                <div class="tab-content pt-2">
 
-                  <!-- ooverview  -->
+                  <!-- profile-overview  -->
 
                   <div class="tab-pane fade show active profile-overview" id="profile-overview">
                      <br>
@@ -166,10 +166,7 @@
                            </a> -->
 
                         </div>
-                           
-                              
-                              
-
+                        
                      </div>
                      
                   </div>
@@ -402,46 +399,23 @@
 
 ?>
 
-
 <?php
 
-?>
+   if(isset($_POST["update_profil_btn"])){
 
+      $username = $_POST['username'];
+      $email = $_POST['email'];
+      $phone = $_POST['phone'];
+      $role = $_POST['role'];
+      $status = isset($_POST['status']) ? '1':'0' ;
 
-<?php
-      if(isset($_POST["update_profil_btn"])){
-
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $role = $_POST['role'];
-        $status = isset($_POST['status']) ? '1':'0' ;
-
-         $update=$bdd->EXEC("UPDATE admins SET nom='$username',telephone='$phone',email='$email', status_admin='$status',role_as='$role' WHERE ID='$id'");
-         if($update){
-            redirect('dashboard.php?page=pages/users/admin/index','Data updated Successfully');
-         }else{
-            error('dashboard.php?page=pages/users/admin/index','Data updated Successfully');
-         }
-         
+      $update=$bdd->EXEC("UPDATE admins SET nom='$username',telephone='$phone',email='$email', status_admin='$status',role_as='$role' WHERE ID='$id'");
+      if($update){
+         redirect('dashboard.php?page=pages/users/admin/index','Data updated Successfully');
+      }else{
+         error('dashboard.php?page=pages/users/admin/index','Data updated Successfully');
       }
+      
+   }
 
-      /* if(isset($_POST["update_user_image_btn"])){
-         
-         $old_image= $_POST["old_image"];
-
-         $newImage = $_FILES['file']['name'];
-    
-         if( $newImage != "" ){
-            $target = $newImage;
-         }else{
-            $target = $old_image;
-            redirect('dashboard.php?page=pages/users/admin/index','Profile updated Successfully');
-
-         }
-         
-         move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/users_image/".basename($_FILES['file']['name']));
-         $update=$bdd->EXEC("UPDATE utilisateurs SET photo='$target' WHERE id_utilisateur=".$_GET["id"]."");
-         redirect('dashboard.php?page=pages/users/participant/index','Profile updated Successfully');
-      } */
    ?>

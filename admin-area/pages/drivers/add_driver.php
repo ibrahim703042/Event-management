@@ -52,6 +52,13 @@
         
         $target= $_FILES['photo']['name'];
 
+        $sql="SELECT * FROM chauffeurs WHERE numero_permis_conduir = '$permis' ";
+        $query = $dbconnection->prepare($sql);
+        $query->execute();
+
+        if($query->rowCount()>0){
+            error('dashboard.php?page=pages/drivers/add_driver','Entered Data is already exist!');
+        }
 
         $sql ="INSERT INTO chauffeurs (nom_complet,numero_telephone,numero_permis_conduir,photo,addresse,date_chauffeur) 
                 VALUES(?,?,?,?,?,Now())";

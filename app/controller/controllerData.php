@@ -10,17 +10,33 @@
     include_once 'class/driver.php';
     include_once 'class/user.php';
     include_once 'class/admin.php';
+    include_once 'class/participant.php';
     
     $admin= new admin($bdd);
     $car= new car($bdd);
     $driver= new driver($bdd);
-    $utilisateur= new user($bdd);    
+    $user= new user($bdd);
+    $participant= new participant($bdd);
+    
+    
 
-    /*              /__________________________authentification__________________________/        */
 
 
 
-    /*              /__________________________Car_Data_Controller__________________________/        */
+
+
+
+    /*              /__________________________authentification______________________________/        */
+
+
+
+
+    /*              /__________________________Registration__________________________________/        */
+
+
+     
+
+    /*              /__________________________Car_Data_Controller____________________________/        */
 
 
 
@@ -31,20 +47,6 @@
     /*              /__________________________Driver_Data_Controller__________________________/        */
 
 
-    // if(isset($_GET["driver_delete_btn"])){
-
-    //     $id = $_POST['driver_id'];
-    //     $query = $driver->delete($id);
-
-    //     if($query){
-
-    //         $_SESSION['message'] = "Data deleted Successfully";
-    //         header('Location:dashboard.php?page=pages/drivers/index');
-
-    //     }else{
-    //         $_SESSION['error'] = "Something went wrong";            
-    //     }
-    // }
-
+    
     
 ?>

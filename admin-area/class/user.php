@@ -9,10 +9,11 @@ class user{
 		$this->db = $DB_con;
 	}
 	
-	public function create($fname,$lname,$email,$phone,$passport,$file,$country,$rotary,$status){
+	public function create($fname,$lname,$email,$phone,$passport,$file,$country,$rotary,$status,$qrcode,$qr_status){
 		try
 		{
-			$query = "INSERT INTO utilisateurs (nom,prenom,email,numero_telephone,passport,photo,pays,rotary,status) VALUES(:fname,:lname,:email,:phone,:passport,:file,:country,:rotary,:status)";
+			$query = "INSERT INTO utilisateurs (nom,prenom,email,numero_telephone,passport,photo,pays,rotary,status,qrcode,qr_status)
+			 VALUES(:fname,:lname,:email,:phone,:passport,:file,:country,:rotary,:status,:qrcode,:qr_status)";
 			$stmt = $this->db->prepare($query);
 			$stmt->bindParam(':fname',$fname);
             $stmt->bindParam(':lname',$lname);
@@ -23,6 +24,8 @@ class user{
             $stmt->bindParam(':country',$country);
             $stmt->bindParam(':rotary',$rotary);
             $stmt->bindParam(':status',$status);
+            $stmt->bindParam(':qrcode',$qrcode);
+            $stmt->bindParam(':qr_status',$qr_status);
         
 			$stmt->execute();
 			return true;
@@ -65,15 +68,17 @@ class user{
 		}
 	}
 	
-	public function payement($id,$fname,$lname,$email,$phone,$passport,$file,$country,$rotary,$status,$role,$password){
+	public function update_payement($id,$status,$qrcode,$qr_status){
 
 		try
 		{
 			$query ="UPDATE utilisateurs 
-				SET  status=:status WHERE id_utilisateur=:id_utilisateur ";
+				SET  status=:status, qrcode=:qrcode, qr_status=:qr_status WHERE id_utilisateur=:id_utilisateur ";
 
 			$stmt = $this->db->prepare($query);
-            $stmt->bindParam(':status',$status);
+			$stmt->bindParam(':status',$status);
+            $stmt->bindParam(':qrcode',$qrcode);
+            $stmt->bindParam(':qr_status',$qr_status);
 			$stmt->bindparam(":id_utilisateur",$id);
 			$stmt->execute();
 			
@@ -94,7 +99,7 @@ class user{
 		return $editRow;
 	}
 
-	public function get_ID($table,$id){
+	public function getByID($table,$id){
 
 		$stmt = $this->db->prepare("SELECT * FROM $table WHERE id_utilisateur=:id");
 		$stmt->execute(array(":id"=>$id));
@@ -169,7 +174,7 @@ class user{
 					</td>
 
 					<td classe="text-center"> 
-						<a class="text-primary me-3" href="dashboard.php?page=pages/users/participant/profile&id=<?php print($row['id_utilisateur']);?>"">
+						<a class="text-primary me-3" href="dashboard.php?page=pages/users/participant/profile&profile_id=<?php print($row['id_utilisateur']);?>"">
 								<i class="bi bi-eye-fill"></i>
 						</a>  
 						<!-- <a class=" text-info me-3" href="dashboard.php?page=pages/users/edit&edit_user_id=<?php print($row['id_utilisateur']);?>" >
